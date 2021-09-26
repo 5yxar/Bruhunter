@@ -30,3 +30,8 @@ body:
     attributes:
       label: Ожидаемое поведение
       placeholder: Каким образом система должна функционировать
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Дополнительная информация
+      placeholder: Прочая информация

@@ -30,3 +30,8 @@ body:
     attributes:
       label: Технические подробности реализации
       placeholder: Прочие технические детали аспектов реализации
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Дополнительная информация
+      placeholder: Прочая информация
