@@ -9,7 +9,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        # 🚀 Фича
+        # 🚀 Новая функциональность
   - type: dropdown
     id: project-selector
     attributes:
