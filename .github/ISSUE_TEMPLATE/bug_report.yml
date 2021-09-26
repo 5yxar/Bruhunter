@@ -1,0 +1,31 @@
+name: 🐛 Баг
+description: Отчет об ошибке
+title: "🐛 "
+labels:
+  - bug
+assignees:
+  - 5yxar
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # 🐛 Баг
+  - type: dropdown
+    attributes:
+      label: Проект
+      options:
+        - Первый проект
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce-steps
+    attributes:
+      label: Шаги воспроизведения
+      placeholder: Список шагов воспроизведения ошибки
+    validations:
+      required: true
+  - type: textarea
+    id: required-behaviour
+    attributes:
+      label: Ожидаемое поведение
+      placeholder: Каким образом система должна функционировать
