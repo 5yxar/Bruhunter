@@ -11,6 +11,7 @@ body:
       value: |
         # 🐛 Баг
   - type: dropdown
+    id: project-selector
     attributes:
       label: Проект
       options:

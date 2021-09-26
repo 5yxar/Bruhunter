@@ -11,6 +11,7 @@ body:
       value: |
         # 🚀 Фича
   - type: dropdown
+    id: project-selector
     attributes:
       label: Проект
       options:
