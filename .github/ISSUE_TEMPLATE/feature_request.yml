@@ -10,14 +10,6 @@ body:
     attributes:
       value: |
         # 🚀 Новая функциональность
-  - type: dropdown
-    id: project-selector
-    attributes:
-      label: Проект
-      options:
-        - Первый проект
-    validations:
-      required: true
   - type: textarea
     id: description
     attributes:
