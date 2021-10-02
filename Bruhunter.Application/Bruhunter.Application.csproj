@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bruhunter.DataAccessLayer\Bruhunter.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\Bruhunter.Shared\Bruhunter.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
