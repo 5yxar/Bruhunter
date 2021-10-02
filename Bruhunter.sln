@@ -5,17 +5,17 @@ VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{162BACB1-7413-4CC2-9E2C-90419FD9D9A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.Api", "Bruhunter.Api\Bruhunter.Api.csproj", "{9253852D-F999-4480-932F-D7B3D7F9EF92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.Api", "src\Bruhunter.Api\Bruhunter.Api.csproj", "{9253852D-F999-4480-932F-D7B3D7F9EF92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.Application", "Bruhunter.Application\Bruhunter.Application.csproj", "{C3C12FF7-640D-493E-B32D-449BDA504583}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.Application", "src\Bruhunter.Application\Bruhunter.Application.csproj", "{C3C12FF7-640D-493E-B32D-449BDA504583}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.DataAccessLayer", "Bruhunter.DataAccessLayer\Bruhunter.DataAccessLayer.csproj", "{CF5F8C22-130B-47C9-98A5-A21766CFDA42}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.DataAccessLayer", "src\Bruhunter.DataAccessLayer\Bruhunter.DataAccessLayer.csproj", "{CF5F8C22-130B-47C9-98A5-A21766CFDA42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.Tests", "Bruhunter.Tests\Bruhunter.Tests.csproj", "{A5FCE3C7-476B-4643-8C98-36D97E03925C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.Tests", "src\Bruhunter.Tests\Bruhunter.Tests.csproj", "{A5FCE3C7-476B-4643-8C98-36D97E03925C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.Shared", "Bruhunter.Shared\Bruhunter.Shared.csproj", "{05F84059-90E4-4C5A-B5DA-7813B3AA6164}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.Shared", "src\Bruhunter.Shared\Bruhunter.Shared.csproj", "{05F84059-90E4-4C5A-B5DA-7813B3AA6164}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.WebApp", "Bruhunter.WebApp\Bruhunter.WebApp.csproj", "{CCD7D484-3F6C-4841-9145-65CA71208790}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.WebApp", "src\Bruhunter.WebApp\Bruhunter.WebApp.csproj", "{CCD7D484-3F6C-4841-9145-65CA71208790}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
