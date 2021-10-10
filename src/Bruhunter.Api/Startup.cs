@@ -26,7 +26,7 @@ namespace Bruhunter.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors(c => c.AddDefaultPolicy(p => p.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod()));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -43,6 +43,8 @@ namespace Bruhunter.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bruhunter.Api v1"));
             }
+
+            app.UseCors();
 
             app.UseHttpsRedirection();
 

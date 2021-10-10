@@ -1,0 +1,46 @@
+﻿@page "/candidates"
+@inject HttpClient Http
+@namespace Bruhunter.Shared.Documents
+
+<h1>Витрина кандидатов</h1>
+
+<p></p>
+
+@if (candidates.Count == 0)
+{
+    <p><em>Загрузка...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>GuidId</th>
+                <th>First Name</th>
+                <th>SecondName</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            @foreach (var candidate in candidates)
+            {
+                <tr>
+                    <td>@candidate.GuidId</td>
+                    <td>@candidate.FirstName</td>
+                    <td>@candidate.SecondName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    List<CandidateDocument> candidates;
+    
+    protected override async Task OnInitializedAsync()
+    {
+         string candidatesTemp = await Http.GetStringAsync("api/candidate/all");
+    }
+
+}
