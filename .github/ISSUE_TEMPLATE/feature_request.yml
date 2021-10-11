@@ -18,12 +18,14 @@ body:
     validations:
       required: true
   - type: textarea
-    id: technical-details
-    attributes:
-      label: Технические подробности реализации
-      placeholder: Прочие технические детали аспектов реализации
-  - type: textarea
     id: additional-info
     attributes:
       label: Дополнительная информация
       placeholder: Прочая информация
+  - type: textarea
+    id: test-brief
+    attributes:
+      label: Тест-бриф
+      placeholder: Список тестов, которые должны пройти прежде чем задача может считаться завершенной
+      value: |
+        - [ ] 
