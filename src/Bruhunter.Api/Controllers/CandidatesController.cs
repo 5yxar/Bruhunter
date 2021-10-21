@@ -13,14 +13,14 @@ namespace Bruhunter.Api.Controllers
     {
         [HttpGet]
         [Route("query")]
-        public IEnumerable<CandidateDocument> GetAllCandidate()
+        public IEnumerable<CandidateDocument> GetAllCandidates()
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
         [Route("{id}")]
-        public IEnumerable<CandidateDocument> GetCandidate(Guid id)
+        public CandidateDocument GetCandidate(Guid id)
         {
             throw new NotImplementedException();
         }
