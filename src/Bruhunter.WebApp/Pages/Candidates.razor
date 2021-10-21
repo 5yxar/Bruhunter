@@ -21,7 +21,7 @@ else
             </tr>
         </thead>
         <tbody>
-            
+
             @foreach (var candidate in candidates)
             {
                 <tr>
@@ -34,13 +34,12 @@ else
     </table>
 }
 
-@code {
-
+@code
+{
     List<CandidateDocument> candidates;
-    
+
     protected override async Task OnInitializedAsync()
     {
-         string candidatesTemp = await Http.GetStringAsync("api/candidate/all");
+        string candidatesTemp = await Http.GetStringAsync("api/candidate/all");
     }
-
 }

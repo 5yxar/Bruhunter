@@ -8,39 +8,39 @@ using System.Threading.Tasks;
 namespace Bruhunter.Api.Controllers
 {
     [ApiController]
-    [Route("api/candidate")]
-    public class CandidateController : ControllerBase
+    [Route("api/candidates")]
+    public class CandidatesController : ControllerBase
     {
-
-        [HttpPost]
-        [Route("createCandidate")]
-        public void CreateCandidate()
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpDelete("{Guidid}")]
-        public void DeleteCandidate(int GuidId)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        [HttpGet("{Guidid}")]
-        public IEnumerable<CandidateDocument> GetCandidate(int Guidid)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpPut("{Guidid}")]
-        public void ChangeCandidate(int GuidId)
+        [HttpGet]
+        [Route("query")]
+        public IEnumerable<CandidateDocument> GetAllCandidate()
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
-        [Route("all")]
-        public IEnumerable<CandidateDocument> allCandidates()
+        [Route("{id}")]
+        public IEnumerable<CandidateDocument> GetCandidate(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public void ChangeCandidate(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPost]
+        public void CreateCandidate()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public void DeleteCandidate(Guid id)
         {
             throw new NotImplementedException();
         }
