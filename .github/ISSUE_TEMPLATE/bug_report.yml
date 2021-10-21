@@ -27,3 +27,10 @@ body:
     attributes:
       label: Дополнительная информация
       placeholder: Прочая информация
+  - type: textarea
+    id: test-brief
+    attributes:
+      label: Тест-бриф
+      placeholder: Список тестов, которые должны пройти прежде чем баг может считаться исправленным
+      value: |
+        - [ ] 
