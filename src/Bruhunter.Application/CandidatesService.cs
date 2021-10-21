@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Bruhunter.Shared.Documents;
 
 namespace Bruhunter.Application
 {
