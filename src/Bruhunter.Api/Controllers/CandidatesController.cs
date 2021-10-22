@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Bruhunter.Shared;
 using Bruhunter.Shared.Documents;
+using Bruhunter.Application;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
@@ -11,6 +12,13 @@ namespace Bruhunter.Api.Controllers
     [Route("api/candidates")]
     public class CandidatesController : ControllerBase
     {
+        private readonly CandidatesService candidatesService;
+
+        public CandidatesController(CandidatesService candidatesService)
+        {
+            this.candidatesService = candidatesService;
+        }
+
         [HttpGet]
         [Route("query")]
         public IEnumerable<CandidateDocument> GetAllCandidates()
