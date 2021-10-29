@@ -8,11 +8,19 @@ namespace Bruhunter.Application
     {
         public CandidatesService()
         {
-            
+                       
         }
 
         private static readonly List<CandidateDocument> Candidates = new List<CandidateDocument>();
 
+        public void AddCandidate(CandidateDocument candidateDocument)
+        {
+            Candidates.Add(candidateDocument);
+        }
+        public List<CandidateDocument> GetAllCandidates()
+        {
+            return Candidates;
+        }
 
     }
 }

@@ -5,6 +5,8 @@ using Bruhunter.Application;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net.Http.Json;
 
 namespace Bruhunter.Api.Controllers
 {
@@ -23,7 +25,7 @@ namespace Bruhunter.Api.Controllers
         [Route("query")]
         public IEnumerable<CandidateDocument> GetAllCandidates()
         {
-            throw new NotImplementedException();
+            return this.candidatesService.GetAllCandidates();
         }
 
         [HttpGet]
@@ -41,9 +43,9 @@ namespace Bruhunter.Api.Controllers
         }
 
         [HttpPost]
-        public void CreateCandidate()
+        public void CreateCandidate(CandidateDocument candidateDocument)
         {
-            throw new NotImplementedException();
+            this.candidatesService.AddCandidate(candidateDocument);
         }
 
         [HttpDelete]
