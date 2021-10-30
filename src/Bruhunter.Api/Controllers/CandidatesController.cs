@@ -52,7 +52,7 @@ namespace Bruhunter.Api.Controllers
         [Route("{id}")]
         public void DeleteCandidate(Guid id)
         {
-            throw new NotImplementedException();
+            this.candidatesService.DeleteCandidate(id);
         }
     }
 }

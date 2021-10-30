@@ -37,7 +37,7 @@ else
                     <td>@candidate.Id</td>
                     <td>@candidate.FirstName</td>
                     <td>@candidate.SecondName</td>
-                    <button @onclick="DeleteCandidate">Click</button>
+                    <button @onclick="@(e => DeleteCandidate(e, candidate.Id))">Click</button>
                 </tr>
             }
         </tbody>
@@ -57,7 +57,7 @@ else
         candidateDocument.FirstName = name;
         candidateDocument.SecondName = lastName;
         candidateDocument.Id = Guid.NewGuid();
-        candidates.Add(candidateDocument);
+        //candidates.Add(candidateDocument);
 
         JsonContent jsonContent = JsonContent.Create(candidateDocument);
         jsonContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -65,9 +65,9 @@ else
         await Http.PostAsync("api/candidates",jsonContent);
             
     }
-    public async void DeleteCandidate()
+    public async void DeleteCandidate(MouseEventArgs e,Guid id)
     {
-        //await Http.DeleteAsync("api/candidates/" + id);
+        await Http.DeleteAsync("api/candidates/" + id);
     }
 
     protected override async Task OnInitializedAsync()

@@ -21,6 +21,16 @@ namespace Bruhunter.Application
         {
             return Candidates;
         }
-
+        public void DeleteCandidate(Guid guid)
+        {
+            foreach (var candidate in Candidates)
+            {
+                if (candidate.Id == guid)
+                {
+                    Candidates.Remove(candidate);
+                    break;
+                }
+            }
+        }
     }
 }
