@@ -49,7 +49,7 @@ else
     private string name;
     private string lastName;
     private int id;
-    List<CandidateDocument> candidates;
+    List<CandidateDocument> candidates= new();
 
     public async void AddCandidate()
     {
@@ -57,7 +57,7 @@ else
         candidateDocument.FirstName = name;
         candidateDocument.SecondName = lastName;
         candidateDocument.Id = Guid.NewGuid();
-        //candidates.Add(candidateDocument);
+        candidates.Add(candidateDocument);
 
         JsonContent jsonContent = JsonContent.Create(candidateDocument);
         jsonContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -72,6 +72,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        //candidates = await Http.GetFromJsonAsync("api/candidates/query");
+        candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
     }
 }
