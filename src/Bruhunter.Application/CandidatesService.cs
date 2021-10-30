@@ -6,15 +6,11 @@ namespace Bruhunter.Application
 {
     public class CandidatesService
     {
-        public CandidatesService()
-        {
-                       
-        }
-
         private static readonly List<CandidateDocument> Candidates = new List<CandidateDocument>();
 
         public void AddCandidate(CandidateDocument candidateDocument)
         {
+            candidateDocument.Id = Guid.NewGuid();
             Candidates.Add(candidateDocument);
         }
         public List<CandidateDocument> GetAllCandidates()

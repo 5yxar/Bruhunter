@@ -4,20 +4,23 @@
 @namespace Bruhunter.Shared.Documents
 
 @inject HttpClient Http
+@inject IJSRuntime JsRuntime
 
 <h1>Витрина кандидатов</h1>
 
 <p></p>
 
 <label>Введите имя:</label>
-<input @bind="name"/><br>
+<input @bind="name" />
+<br>
 <label>Введите фамилию:</label>
-<input @bind="lastName"/><br>
+<input @bind="lastName" />
+<br>
 <button @onclick="AddCandidate">Добавить нового кандидата</button>
 
 @if (candidates.Count == 0)
 {
-    <p><em>Загрузка...</em></p>
+    <p><em>Нет данных о кандидатах</em></p>
 }
 else
 {
@@ -30,14 +33,13 @@ else
             </tr>
         </thead>
         <tbody>
-
             @foreach (var candidate in candidates)
             {
                 <tr>
                     <td>@candidate.Id</td>
                     <td>@candidate.FirstName</td>
                     <td>@candidate.SecondName</td>
-                    <button @onclick="@(e => DeleteCandidate(e, candidate.Id))">Click</button>
+                    <button @onclick="@(e => DeleteCandidate(candidate.Id))">Click</button>
                 </tr>
             }
         </tbody>
@@ -46,32 +48,44 @@ else
 
 @code
 {
+    List<CandidateDocument> candidates;
     private string name;
     private string lastName;
     private int id;
-    List<CandidateDocument> candidates= new();
 
-    public async void AddCandidate()
+    private async void AddCandidate()
     {
-        CandidateDocument candidateDocument = new CandidateDocument();
-        candidateDocument.FirstName = name;
-        candidateDocument.SecondName = lastName;
-        candidateDocument.Id = Guid.NewGuid();
-        //candidates.Add(candidateDocument);
+        if (name == null || lastName == null)
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Заполните все поля.");
+        }
+        else
+        {
+            CandidateDocument candidateDocument = new CandidateDocument();
+            candidateDocument.FirstName = name;
+            candidateDocument.SecondName = lastName;
 
-        JsonContent jsonContent = JsonContent.Create(candidateDocument);
-        jsonContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            JsonContent jsonContent = JsonContent.Create(candidateDocument);
+            jsonContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            await Http.PostAsync("api/candidates", jsonContent);
 
-        await Http.PostAsync("api/candidates",jsonContent);
-            
+            candidates = new();
+            candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
+            StateHasChanged();
+        }
     }
-    public async void DeleteCandidate(MouseEventArgs e,Guid id)
+
+    private async void DeleteCandidate(Guid id)
     {
         await Http.DeleteAsync("api/candidates/" + id);
+        candidates = new();
+        candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
+        StateHasChanged();
     }
 
     protected override async Task OnInitializedAsync()
     {
+        candidates = new();
         candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
     }
 }
