@@ -25,7 +25,7 @@ namespace Bruhunter.Api.Controllers
         [Route("query")]
         public IEnumerable<CandidateDocument> GetAllCandidates()
         {
-            return this.candidatesService.GetAllCandidates();
+            return candidatesService.GetAllCandidates();
         }
 
         [HttpGet]
@@ -45,14 +45,14 @@ namespace Bruhunter.Api.Controllers
         [HttpPost]
         public void CreateCandidate(CandidateDocument candidateDocument)
         {
-            this.candidatesService.AddCandidate(candidateDocument);
+            candidatesService.AddCandidate(candidateDocument);
         }
 
         [HttpDelete]
         [Route("{id}")]
         public void DeleteCandidate(Guid id)
         {
-            this.candidatesService.DeleteCandidate(id);
+            candidatesService.DeleteCandidate(id);
         }
     }
 }

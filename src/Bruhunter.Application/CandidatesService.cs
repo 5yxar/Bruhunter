@@ -13,20 +13,15 @@ namespace Bruhunter.Application
             candidateDocument.Id = Guid.NewGuid();
             Candidates.Add(candidateDocument);
         }
+
         public List<CandidateDocument> GetAllCandidates()
         {
             return Candidates;
         }
+
         public void DeleteCandidate(Guid guid)
         {
-            foreach (var candidate in Candidates)
-            {
-                if (candidate.Id == guid)
-                {
-                    Candidates.Remove(candidate);
-                    break;
-                }
-            }
+            Candidates.RemoveAll(o => o.Id == guid);
         }
     }
 }

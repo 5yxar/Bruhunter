@@ -1,6 +1,5 @@
 ﻿@page "/candidates"
 @using System.Net.Http.Headers
-@using System.Net.Http.Json
 @namespace Bruhunter.Shared.Documents
 
 @inject HttpClient Http
@@ -28,8 +27,8 @@ else
         <thead>
             <tr>
                 <th>Id</th>
-                <th>First Name</th>
-                <th>SecondName</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
             </tr>
         </thead>
         <tbody>
@@ -39,7 +38,7 @@ else
                     <td>@candidate.Id</td>
                     <td>@candidate.FirstName</td>
                     <td>@candidate.SecondName</td>
-                    <button @onclick="@(e => DeleteCandidate(candidate.Id))">Click</button>
+                    <button @onclick="@(e => DeleteCandidate(candidate.Id))">Удалить</button>
                 </tr>
             }
         </tbody>
@@ -53,6 +52,11 @@ else
     private string lastName;
     private int id;
 
+    protected override async Task OnInitializedAsync()
+    {
+        await GetCandidates();
+    }
+
     private async void AddCandidate()
     {
         if (name == null || lastName == null)
@@ -61,31 +65,32 @@ else
         }
         else
         {
-            CandidateDocument candidateDocument = new CandidateDocument();
-            candidateDocument.FirstName = name;
-            candidateDocument.SecondName = lastName;
+            var candidateDocument = new CandidateDocument
+                {
+                    FirstName = name,
+                    SecondName = lastName
+                };
+            name = null;
+            lastName = null;
 
-            JsonContent jsonContent = JsonContent.Create(candidateDocument);
-            jsonContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var jsonContent = JsonContent.Create(candidateDocument, new MediaTypeHeaderValue("application/json"));
             await Http.PostAsync("api/candidates", jsonContent);
 
-            candidates = new();
-            candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
+            await GetCandidates();
             StateHasChanged();
         }
+    }
+
+    private async Task GetCandidates()
+    {
+        candidates = new();
+        candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
     }
 
     private async void DeleteCandidate(Guid id)
     {
         await Http.DeleteAsync("api/candidates/" + id);
-        candidates = new();
-        candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
+        await GetCandidates();
         StateHasChanged();
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        candidates = new();
-        candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
     }
 }

@@ -27,7 +27,7 @@ namespace Bruhunter.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<CandidatesService>();
+            AddServiceDependencies(services);
             services.AddCors(c => c.AddDefaultPolicy(p => p.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod()));
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -59,5 +59,10 @@ namespace Bruhunter.Api
                 endpoints.MapControllers();
             });
         }
+        private void AddServiceDependencies(IServiceCollection services)
+        {
+            services.AddSingleton<CandidatesService>();
+        }
+
     }
 }
