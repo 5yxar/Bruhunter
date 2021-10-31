@@ -59,10 +59,10 @@ namespace Bruhunter.Api
                 endpoints.MapControllers();
             });
         }
+
         private void AddServiceDependencies(IServiceCollection services)
         {
             services.AddSingleton<CandidatesService>();
         }
-
     }
 }

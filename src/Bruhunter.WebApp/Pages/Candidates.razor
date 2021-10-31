@@ -54,7 +54,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await GetCandidates();
+        await LoadCandidates();
     }
 
     private async void AddCandidate()
@@ -76,12 +76,12 @@ else
             var jsonContent = JsonContent.Create(candidateDocument, new MediaTypeHeaderValue("application/json"));
             await Http.PostAsync("api/candidates", jsonContent);
 
-            await GetCandidates();
+            await LoadCandidates();
             StateHasChanged();
         }
     }
 
-    private async Task GetCandidates()
+    private async Task LoadCandidates()
     {
         candidates = new();
         candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
@@ -90,7 +90,7 @@ else
     private async void DeleteCandidate(Guid id)
     {
         await Http.DeleteAsync("api/candidates/" + id);
-        await GetCandidates();
+        await LoadCandidates();
         StateHasChanged();
     }
 }
