@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Bruhunter.Shared;
 using Bruhunter.Shared.Documents;
+using Bruhunter.Application;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net.Http.Json;
 
 namespace Bruhunter.Api.Controllers
 {
@@ -11,11 +14,18 @@ namespace Bruhunter.Api.Controllers
     [Route("api/candidates")]
     public class CandidatesController : ControllerBase
     {
+        private readonly CandidatesService candidatesService;
+
+        public CandidatesController(CandidatesService candidatesService)
+        {
+            this.candidatesService = candidatesService;
+        }
+
         [HttpGet]
         [Route("query")]
         public IEnumerable<CandidateDocument> GetAllCandidates()
         {
-            throw new NotImplementedException();
+            return candidatesService.GetAllCandidates();
         }
 
         [HttpGet]
@@ -33,16 +43,16 @@ namespace Bruhunter.Api.Controllers
         }
 
         [HttpPost]
-        public void CreateCandidate()
+        public void CreateCandidate(CandidateDocument candidateDocument)
         {
-            throw new NotImplementedException();
+            candidatesService.AddCandidate(candidateDocument);
         }
 
         [HttpDelete]
         [Route("{id}")]
         public void DeleteCandidate(Guid id)
         {
-            throw new NotImplementedException();
+            candidatesService.DeleteCandidate(id);
         }
     }
 }

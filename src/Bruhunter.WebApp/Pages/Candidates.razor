@@ -1,15 +1,25 @@
 ﻿@page "/candidates"
+@using System.Net.Http.Headers
 @namespace Bruhunter.Shared.Documents
 
 @inject HttpClient Http
+@inject IJSRuntime JsRuntime
 
 <h1>Витрина кандидатов</h1>
 
 <p></p>
 
+<label>Введите имя:</label>
+<input @bind="name" />
+<br>
+<label>Введите фамилию:</label>
+<input @bind="lastName" />
+<br>
+<button @onclick="AddCandidate">Добавить нового кандидата</button>
+
 @if (candidates.Count == 0)
 {
-    <p><em>Загрузка...</em></p>
+    <p><em>Нет данных о кандидатах</em></p>
 }
 else
 {
@@ -17,18 +27,18 @@ else
         <thead>
             <tr>
                 <th>Id</th>
-                <th>First Name</th>
-                <th>SecondName</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
             </tr>
         </thead>
         <tbody>
-
             @foreach (var candidate in candidates)
             {
                 <tr>
                     <td>@candidate.Id</td>
                     <td>@candidate.FirstName</td>
                     <td>@candidate.SecondName</td>
+                    <button @onclick="@(e => DeleteCandidate(candidate.Id))">Удалить</button>
                 </tr>
             }
         </tbody>
@@ -38,9 +48,48 @@ else
 @code
 {
     List<CandidateDocument> candidates;
+    private string name;
+    private string lastName;
 
     protected override async Task OnInitializedAsync()
     {
-        string candidatesTemp = await Http.GetStringAsync("api/candidate/all");
+        await LoadCandidates();
+    }
+
+    private async void AddCandidate()
+    {
+        if (name == null || lastName == null)
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Заполните все поля.");
+        }
+        else
+        {
+            var candidateDocument = new CandidateDocument
+                {
+                    FirstName = name,
+                    SecondName = lastName
+                };
+            name = null;
+            lastName = null;
+
+            var jsonContent = JsonContent.Create(candidateDocument, new MediaTypeHeaderValue("application/json"));
+            await Http.PostAsync("api/candidates", jsonContent);
+
+            await LoadCandidates();
+            StateHasChanged();
+        }
+    }
+
+    private async Task LoadCandidates()
+    {
+        candidates = new();
+        candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
+    }
+
+    private async void DeleteCandidate(Guid id)
+    {
+        await Http.DeleteAsync("api/candidates/" + id);
+        await LoadCandidates();
+        StateHasChanged();
     }
 }
