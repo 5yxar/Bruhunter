@@ -56,7 +56,7 @@ else
         await LoadCandidates();
     }
 
-    private async void AddCandidate()
+    private async Task AddCandidate()
     {
         if (name == null || lastName == null)
         {
@@ -76,20 +76,17 @@ else
             await Http.PostAsync("api/candidates", jsonContent);
 
             await LoadCandidates();
-            StateHasChanged();
         }
     }
 
     private async Task LoadCandidates()
     {
-        candidates = new();
         candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
     }
 
-    private async void DeleteCandidate(Guid id)
+    private async Task DeleteCandidate(Guid id)
     {
         await Http.DeleteAsync("api/candidates/" + id);
         await LoadCandidates();
-        StateHasChanged();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Bruhunter.Shared.Documents;
 
 namespace Bruhunter.Application
@@ -8,18 +9,18 @@ namespace Bruhunter.Application
     {
         private static readonly List<CandidateDocument> Candidates = new List<CandidateDocument>();
 
-        public void AddCandidate(CandidateDocument candidateDocument)
+        public async Task AddCandidate(CandidateDocument candidateDocument)
         {
             candidateDocument.Id = Guid.NewGuid();
             Candidates.Add(candidateDocument);
         }
 
-        public List<CandidateDocument> GetAllCandidates()
+        public async Task<List<CandidateDocument>> GetAllCandidates()
         {
             return Candidates;
         }
 
-        public void DeleteCandidate(Guid guid)
+        public async Task DeleteCandidate(Guid guid)
         {
             Candidates.RemoveAll(o => o.Id == guid);
         }

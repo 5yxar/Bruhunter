@@ -23,36 +23,36 @@ namespace Bruhunter.Api.Controllers
 
         [HttpGet]
         [Route("query")]
-        public IEnumerable<CandidateDocument> GetAllCandidates()
+        public async Task<IEnumerable<CandidateDocument>> GetAllCandidates()
         {
-            return candidatesService.GetAllCandidates();
+            return await candidatesService.GetAllCandidates();
         }
 
         [HttpGet]
         [Route("{id}")]
-        public CandidateDocument GetCandidate(Guid id)
+        public async Task<CandidateDocument> GetCandidate(Guid id)
         {
             throw new NotImplementedException();
         }
 
         [HttpPut]
         [Route("{id}")]
-        public void ChangeCandidate(Guid id)
+        public async Task ChangeCandidate(Guid id)
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
-        public void CreateCandidate(CandidateDocument candidateDocument)
+        public async Task CreateCandidate(CandidateDocument candidateDocument)
         {
-            candidatesService.AddCandidate(candidateDocument);
+           await candidatesService.AddCandidate(candidateDocument);
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public void DeleteCandidate(Guid id)
+        public async Task DeleteCandidate(Guid id)
         {
-            candidatesService.DeleteCandidate(id);
+            await candidatesService.DeleteCandidate(id);
         }
     }
 }
