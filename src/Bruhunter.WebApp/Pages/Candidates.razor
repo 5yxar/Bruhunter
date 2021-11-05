@@ -17,7 +17,7 @@
 <br>
 <button @onclick="AddCandidate">Добавить нового кандидата</button>
 
-@if (candidates.Count == 0)
+@if (candidates == null)
 {
     <p><em>Нет данных о кандидатах</em></p>
 }
