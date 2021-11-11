@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
 using System.Net.Http;
-using System.Net.Http.Json;
 
 namespace Bruhunter.Api.Controllers
 {
