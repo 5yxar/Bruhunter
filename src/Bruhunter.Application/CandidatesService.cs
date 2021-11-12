@@ -1,27 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Bruhunter.Shared.Documents;
+using Bruhunter.DataAccessLayer;
 
 namespace Bruhunter.Application
 {
     public class CandidatesService
     {
-        private static readonly List<CandidateDocument> Candidates = new List<CandidateDocument>();
+        private readonly CandidatesRepository candidatesRepository;
 
-        public void AddCandidate(CandidateDocument candidateDocument)
+        public CandidatesService(CandidatesRepository candidatesRepository)
+        {
+            this.candidatesRepository = candidatesRepository;
+        }
+
+        public async Task AddCandidate(CandidateDocument candidateDocument)
         {
             candidateDocument.Id = Guid.NewGuid();
-            Candidates.Add(candidateDocument);
+            await candidatesRepository.AddCandidate(candidateDocument);
         }
 
-        public List<CandidateDocument> GetAllCandidates()
+        public async Task<IEnumerable<CandidateDocument>> GetAllCandidates()
         {
-            return Candidates;
+            return await candidatesRepository.GetAllCandidates();
         }
 
-        public void DeleteCandidate(Guid guid)
+        public async Task DeleteCandidate(Guid guid)
         {
-            Candidates.RemoveAll(o => o.Id == guid);
+            await candidatesRepository.DeleteCandidate(guid);
         }
     }
 }

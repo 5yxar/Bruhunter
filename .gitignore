@@ -351,3 +351,6 @@ MigrationBackup/
 
 # Another apps
 .idea/
+
+# DbLite file 
+*.db
