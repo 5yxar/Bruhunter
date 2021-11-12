@@ -8,9 +8,11 @@ namespace Bruhunter.Application
 {
     public class CandidatesService
     {
-        private static readonly CandidatesRepository candidatesRepository = new (@$"Filename=MyData.db; Connection=Shared;");
+        private readonly CandidatesRepository candidatesRepository = new (@$"Filename=MyData.db; Connection=Shared;");
+
         public async Task AddCandidate(CandidateDocument candidateDocument)
         {
+            candidateDocument.Id = Guid.NewGuid();
             await candidatesRepository.AddCandidate(candidateDocument);
         }
 

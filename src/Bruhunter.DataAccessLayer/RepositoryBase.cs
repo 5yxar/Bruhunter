@@ -5,7 +5,7 @@ namespace Bruhunter.DataAccessLayer
 {
     public class RepositoryBase
     {
-        protected LiteDatabase db;
+        protected readonly LiteDatabase db;
 
         public RepositoryBase(string connectionString)
         {
