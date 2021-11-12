@@ -8,7 +8,12 @@ namespace Bruhunter.Application
 {
     public class CandidatesService
     {
-        private readonly CandidatesRepository candidatesRepository = new (@$"Filename=MyData.db; Connection=Shared;");
+        private readonly CandidatesRepository candidatesRepository;
+
+        public CandidatesService(CandidatesRepository candidatesRepository)
+        {
+            this.candidatesRepository = candidatesRepository;
+        }
 
         public async Task AddCandidate(CandidateDocument candidateDocument)
         {

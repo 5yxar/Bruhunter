@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bruhunter.Application;
+using Bruhunter.DataAccessLayer;
 
 namespace Bruhunter.Api
 {
@@ -63,6 +64,7 @@ namespace Bruhunter.Api
         private void AddServiceDependencies(IServiceCollection services)
         {
             services.AddSingleton<CandidatesService>();
+            services.AddSingleton<CandidatesRepository>(new CandidatesRepository(@$"Filename=MyData.db; Connection=Shared;"));
         }
     }
 }

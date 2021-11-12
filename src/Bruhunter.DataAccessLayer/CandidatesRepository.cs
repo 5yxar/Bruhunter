@@ -9,7 +9,7 @@ namespace Bruhunter.DataAccessLayer
 {
     public class CandidatesRepository : RepositoryBase
     {
-        private ILiteCollection<CandidateDocument> collection;
+        private readonly ILiteCollection<CandidateDocument> collection;
 
         public CandidatesRepository(string connectionString) : base(connectionString)
         {
