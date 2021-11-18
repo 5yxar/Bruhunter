@@ -8,9 +8,9 @@ namespace Bruhunter.Application
 {
     public class CandidatesService
     {
-        private readonly CandidatesRepository candidatesRepository;
+        private readonly ICandidatesRepository candidatesRepository;
 
-        public CandidatesService(CandidatesRepository candidatesRepository)
+        public CandidatesService(ICandidatesRepository candidatesRepository)
         {
             this.candidatesRepository = candidatesRepository;
         }
