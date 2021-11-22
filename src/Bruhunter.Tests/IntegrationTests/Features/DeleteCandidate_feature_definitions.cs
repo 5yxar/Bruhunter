@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Bruhunter.Tests.IntegrationTests.Feautures
 {
-    public partial  class DeleteCandidate_feature
+    public partial  class DeleteCandidates_feature
     {
         private CandidateDocument candidateBeforeAddition;
 
@@ -27,7 +27,7 @@ namespace Bruhunter.Tests.IntegrationTests.Feautures
                 await CandidatesService.DeleteCandidate(candidate.Id);
             }
         }
-        public async Task Then_database_should_not_contain_candidate()
+        public async Task Then_database_should_not_contain_candidates()
         {
             Assert.Empty(await GetCandidates());
         }

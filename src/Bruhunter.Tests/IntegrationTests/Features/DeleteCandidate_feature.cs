@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bruhunter.Tests.IntegrationTests.Feautures
 {
-    public partial class DeleteCandidate_feature:FeatureFixtureBase
+    public partial class DeleteCandidates_feature : FeatureFixtureBase
     {
         [Scenario]
         public async Task Candidate_should_be_deleted_in_database()
@@ -19,7 +19,7 @@ namespace Bruhunter.Tests.IntegrationTests.Feautures
                                                .Please()),
                     _ => When_add_candidate(),
                     _ => When_delete_candidates(),
-                    _ => Then_database_should_not_contain_candidate())
+                    _ => Then_database_should_not_contain_candidates())
                 .RunAsync();
         }
     }
