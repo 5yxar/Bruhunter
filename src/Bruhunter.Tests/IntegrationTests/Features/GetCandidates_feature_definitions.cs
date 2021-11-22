@@ -7,15 +7,15 @@ namespace Bruhunter.Tests.IntegrationTests.Feautures
 {
     public partial class GetCandidates_feature
     {
-        private CandidateDocument candidateBeforeInsert;
+        private CandidateDocument candidateBeforeAddition;
 
         public async Task Given_candidate(CandidateDocument candidateDocument)
         {
-            candidateBeforeInsert = candidateDocument;
+            candidateBeforeAddition = candidateDocument;
         }
         public async Task When_add_candidate()
         {
-            await CandidatesService.AddCandidate(candidateBeforeInsert);
+            await CandidatesService.AddCandidate(candidateBeforeAddition);
         }
 
         public async Task Then_we_should_have_candidates()
