@@ -32,9 +32,9 @@ namespace Bruhunter.Tests.IntegrationTests.Feautures
             Assert.Empty(await GetCandidates());
         }
 
-        private async Task<List<CandidateDocument>> GetCandidates()
+        private async Task<IEnumerable<CandidateDocument>> GetCandidates()
         {
-            return (List<CandidateDocument>)await CandidatesRepository.GetAllCandidates();
+            return await CandidatesRepository.GetAllCandidates();
         }
     }
 }
