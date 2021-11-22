@@ -1,13 +1,15 @@
 ﻿using Bruhunter.Application;
 using Bruhunter.Shared.Documents;
+using Bruhunter.Tests.UnitTests;
+using Bruhunter.Tests.UnitTests.Mocks;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Bruhunter.Tests
+namespace Bruhunter.Tests.UnitTests.CandidatesServiceTests
 {
-    public class WhenAddCandidate
+    public class WhenAddCandidate : TestBase
     {
         [Fact]
         public async Task CandidateDocumentIdShouldBeNewGuid()
@@ -18,14 +20,12 @@ namespace Bruhunter.Tests
                 FirstName = "Test candidate first name",
                 SecondName = "Test candidate second name"
             };
-            var candidatesRepository = new CandidatesRepositoryMock();
-            var service = new CandidatesService(candidatesRepository);
 
-            await service.AddCandidate(candidateBeforeInsert);
+            await CandidatesService.AddCandidate(candidateBeforeInsert);
 
-            var candidates = await candidatesRepository.GetAllCandidates();
+            var candidates = await CandidatesRepository.GetAllCandidates();
             var candidate = candidates.Single();
-            Assert.NotEqual(Guid.Empty,candidate.Id);
+            Assert.NotEqual(Guid.Empty, candidate.Id);
         }
 
         [Fact]

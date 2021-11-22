@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Bruhunter.Tests
+namespace Bruhunter.Tests.UnitTests
 {
     internal class CandidatesRepositoryMock : ICandidatesRepository
     {

@@ -1,9 +1,10 @@
-﻿using LightBDD.Framework.Scenarios;
+﻿using Bruhunter.Tests.IntegrationTests;
+using LightBDD.Framework.Scenarios;
 using LightBDD.XUnit2;
 using System;
 using System.Threading.Tasks;
 
-namespace Bruhunter.Tests
+namespace Bruhunter.Tests.IntegrationTests.Feautures
 {
     public partial class DeleteCandidate_feature:FeatureFixtureBase
     {

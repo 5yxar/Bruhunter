@@ -1,4 +1,4 @@
-﻿namespace Bruhunter.Tests
+﻿namespace Bruhunter.Tests.Common
 {
     public class DomainEntitiesBuilder
     {

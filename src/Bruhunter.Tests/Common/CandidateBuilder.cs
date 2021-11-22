@@ -1,9 +1,9 @@
 ﻿using Bruhunter.Shared.Documents;
 using System;
 
-namespace Bruhunter.Tests
+namespace Bruhunter.Tests.Common
 {
-    public  class CandidateBuilder
+    public class CandidateBuilder
     {
         private Guid id;
         private string firstName = "Vanya";

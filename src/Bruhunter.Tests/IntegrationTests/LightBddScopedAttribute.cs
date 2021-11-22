@@ -1,7 +1,7 @@
 ﻿using LightBDD.XUnit2;
 
-[assembly: LightBddScopeAttribute]
-namespace Bruhunter.Tests
+[assembly: LightBddScope]
+namespace Bruhunter.Tests.IntegrationTests
 {
     public class LightBddScopedAttribute : LightBddScopeAttribute
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Bruhunter.Tests
+namespace Bruhunter.Tests.IntegrationTests.Feautures
 {
     public partial  class DeleteCandidate_feature
     {
