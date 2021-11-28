@@ -12,19 +12,20 @@ namespace Bruhunter.Tests.UnitTests.CandidatesServiceTests
     public class WhenAddCandidate : TestBase
     {
         [Fact]
-        public async Task CandidateDocumentIdShouldBeNewGuid()
+        public async Task CandidateDocumentIdShouldNotBeEmptyGuid()
         {
-            var candidateBeforeInsert = new CandidateDocument
+            var candidateBeforeAddition = new CandidateDocument
             {
                 Id = Guid.Empty,
                 FirstName = "Test candidate first name",
                 SecondName = "Test candidate second name"
             };
 
-            await CandidatesService.AddCandidate(candidateBeforeInsert);
+            await CandidatesService.AddCandidate(candidateBeforeAddition);
 
             var candidates = await CandidatesRepository.GetAllCandidates();
             var candidate = candidates.Single();
+
             Assert.NotEqual(Guid.Empty, candidate.Id);
         }
 

@@ -13,9 +13,6 @@ namespace Bruhunter.Tests.IntegrationTests.Feautures
         {
             await Runner.AddAsyncSteps(
                     _ => Given_candidate(GiveMe.Candidate()
-                                               .WithId(Guid.Empty)
-                                               .WithFirstName("Первое")
-                                               .WithSecondName("Второе")
                                                .Please()),
                     _ => When_add_candidate(),
                     _ => Then_database_should_contain_candidate())

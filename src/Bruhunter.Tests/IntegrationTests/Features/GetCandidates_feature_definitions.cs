@@ -1,5 +1,7 @@
 ﻿using Bruhunter.Application;
 using Bruhunter.Shared.Documents;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -7,21 +9,19 @@ namespace Bruhunter.Tests.IntegrationTests.Feautures
 {
     public partial class GetCandidates_feature
     {
-        private CandidateDocument candidateBeforeAddition;
-
-        public async Task Given_candidate(CandidateDocument candidateDocument)
+        IEnumerable<CandidateDocument> candidates;
+        public async Task Given_candidate_in_database(CandidateDocument candidateDocument)
         {
-            candidateBeforeAddition = candidateDocument;
+            await CandidatesRepository.AddCandidate(candidateDocument);
         }
-        public async Task When_add_candidate()
+        public async Task When_receive_candidates()
         {
-            await CandidatesService.AddCandidate(candidateBeforeAddition);
+            candidates = await CandidatesService.GetAllCandidates();
         }
 
-        public async Task Then_we_should_have_candidates()
+        public async Task Then_received_candidates_count_should_be(int candidatesCount)
         {
-            var candidates = await CandidatesService.GetAllCandidates();
-            Assert.NotEmpty(candidates);
+            Assert.Equal(candidatesCount, candidates.ToList().Count);
         }
     }
 }

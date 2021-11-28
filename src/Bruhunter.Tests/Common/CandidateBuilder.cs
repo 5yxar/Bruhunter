@@ -5,10 +5,10 @@ namespace Bruhunter.Tests.Common
 {
     public class CandidateBuilder
     {
-        private Guid id;
+        private Guid id = Guid.NewGuid();
         private string firstName = "Vanya";
         private string secondName = "Ivanov";
-
+            
         public CandidateBuilder WithId(Guid id)
         {
             this.id = id;

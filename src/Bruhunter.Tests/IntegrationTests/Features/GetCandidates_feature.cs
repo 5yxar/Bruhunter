@@ -8,23 +8,17 @@ namespace Bruhunter.Tests.IntegrationTests.Feautures
 {
     public partial class GetCandidates_feature : FeatureFixtureBase
     {
+        private Guid candidateId = Guid.NewGuid();
+        private int candidatesCountMustBeAdded = 2;
+
         [Scenario]
         public async Task Candidates_should_be_received_from_db()
         {
             await Runner.AddAsyncSteps(
-                    _ => Given_candidate(GiveMe.Candidate()
-                                               .WithId(Guid.Empty)
-                                               .WithFirstName("Первое")
-                                               .WithSecondName("Второе")
-                                               .Please()),
-                    _ => When_add_candidate(),
-                    _ => Given_candidate(GiveMe.Candidate()
-                                               .WithId(Guid.Empty)
-                                               .WithFirstName("Первое Первое")
-                                               .WithSecondName("Второе Второе")
-                                               .Please()),
-                    _ => When_add_candidate(),
-                    _ => Then_we_should_have_candidates())
+                    _ => Given_candidate_in_database(GiveMe.Candidate().Please()),
+                    _ => Given_candidate_in_database(GiveMe.Candidate().Please()),
+                    _ => When_receive_candidates(),
+                    _ => Then_received_candidates_count_should_be(candidatesCountMustBeAdded))
                 .RunAsync();
         }
     }
