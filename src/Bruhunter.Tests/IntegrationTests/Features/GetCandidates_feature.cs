@@ -8,7 +8,6 @@ namespace Bruhunter.Tests.IntegrationTests.Feautures
 {
     public partial class GetCandidates_feature : FeatureFixtureBase
     {
-        private Guid candidateId = Guid.NewGuid();
         private int candidatesCountMustBeAdded = 2;
 
         [Scenario]
