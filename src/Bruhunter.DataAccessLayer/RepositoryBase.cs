@@ -1,5 +1,4 @@
-﻿using System;
-using LiteDB;
+﻿using LiteDB;
 
 namespace Bruhunter.DataAccessLayer
 {
@@ -7,9 +6,9 @@ namespace Bruhunter.DataAccessLayer
     {
         protected readonly LiteDatabase db;
 
-        public RepositoryBase(string connectionString)
+        public RepositoryBase(LiteDatabase db)
         {
-            db = new LiteDatabase(connectionString);
+            this.db = db;
         }
     }
 }

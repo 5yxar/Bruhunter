@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace Bruhunter.DataAccessLayer
 {
-    public class CandidatesRepository : RepositoryBase
+    public class CandidatesRepository : RepositoryBase, ICandidatesRepository
     {
         private readonly ILiteCollection<CandidateDocument> collection;
 
-        public CandidatesRepository(string connectionString) : base(connectionString)
+        public CandidatesRepository(LiteDatabase db) : base(db)
         {
             collection = db.GetCollection<CandidateDocument>("candidates");
         }

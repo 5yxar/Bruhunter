@@ -7,12 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Bruhunter.Application;
 using Bruhunter.DataAccessLayer;
+using LiteDB;
 
 namespace Bruhunter.Api
 {
@@ -64,7 +61,9 @@ namespace Bruhunter.Api
         private void AddServiceDependencies(IServiceCollection services)
         {
             services.AddSingleton<CandidatesService>();
-            services.AddSingleton<CandidatesRepository>(new CandidatesRepository(@$"Filename=MyData.db; Connection=Shared;"));
+
+            var liteDb = new LiteDatabase(@$"Filename=MyData.db; Connection=Shared;");
+            services.AddSingleton<ICandidatesRepository>(new CandidatesRepository(liteDb));
         }
     }
 }
