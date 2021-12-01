@@ -12,11 +12,11 @@ namespace Bruhunter.Tests.UnitTests.Mocks
     {
         public TestBase()
         {
-            CandidatesRepository = new CandidatesRepositoryMock();
-            CandidatesService = new CandidatesService(CandidatesRepository);
+            CandidatesRepositoryMock = new CandidatesRepositoryMock();
+            CandidatesService = new CandidatesService(CandidatesRepositoryMock);
         }
 
         protected CandidatesService CandidatesService { get; private set; }
-        protected ICandidatesRepository CandidatesRepository { get; private set; }
+        protected CandidatesRepositoryMock CandidatesRepositoryMock { get; private set; }
     }
 }

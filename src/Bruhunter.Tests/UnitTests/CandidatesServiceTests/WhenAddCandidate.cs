@@ -23,7 +23,7 @@ namespace Bruhunter.Tests.UnitTests.CandidatesServiceTests
 
             await CandidatesService.AddCandidate(candidateBeforeAddition);
 
-            var candidates = await CandidatesRepository.GetAllCandidates();
+            var candidates = await CandidatesRepositoryMock.GetAllCandidates();
             var candidate = candidates.Single();
 
             Assert.NotEqual(Guid.Empty, candidate.Id);
@@ -33,12 +33,10 @@ namespace Bruhunter.Tests.UnitTests.CandidatesServiceTests
         public async Task CandidatesRepositoryAddCandidateMethodCalled()
         {
             var candidate = new CandidateDocument();
-            var candidatesRepository = new CandidatesRepositoryMock();
-            var service = new CandidatesService(candidatesRepository);
 
-            await service.AddCandidate(candidate);
+            await CandidatesService.AddCandidate(candidate);
 
-            Assert.True(candidatesRepository.AddCandidateMethodCalled);
+            Assert.True(CandidatesRepositoryMock.AddCandidateMethodCalled);
         }
     }
 }

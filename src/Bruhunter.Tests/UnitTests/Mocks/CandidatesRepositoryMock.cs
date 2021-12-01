@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bruhunter.Tests.UnitTests
 {
-    internal class CandidatesRepositoryMock : ICandidatesRepository
+    public class CandidatesRepositoryMock : ICandidatesRepository
     {
         private static List<CandidateDocument> candidates;
 
