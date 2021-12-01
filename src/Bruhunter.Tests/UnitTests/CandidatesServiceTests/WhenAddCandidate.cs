@@ -36,7 +36,7 @@ namespace Bruhunter.Tests.UnitTests.CandidatesServiceTests
             var candidatesRepository = new CandidatesRepositoryMock();
             var service = new CandidatesService(candidatesRepository);
 
-            await CandidatesService.AddCandidate(candidate);
+            await service.AddCandidate(candidate);
 
             Assert.True(candidatesRepository.AddCandidateMethodCalled);
         }
