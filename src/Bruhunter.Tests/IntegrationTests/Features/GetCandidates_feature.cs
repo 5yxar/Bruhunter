@@ -8,8 +8,6 @@ namespace Bruhunter.Tests.IntegrationTests.Feautures
 {
     public partial class GetCandidates_feature : FeatureFixtureBase
     {
-        private int candidatesCountMustBeAdded = 2;
-
         [Scenario]
         public async Task Candidates_should_be_received_from_db()
         {
@@ -17,7 +15,7 @@ namespace Bruhunter.Tests.IntegrationTests.Feautures
                     _ => Given_candidate_in_database(GiveMe.Candidate().Please()),
                     _ => Given_candidate_in_database(GiveMe.Candidate().Please()),
                     _ => When_receive_candidates(),
-                    _ => Then_received_candidates_count_should_be(candidatesCountMustBeAdded))
+                    _ => Then_received_candidates_count_should_be(2))
                 .RunAsync();
         }
     }

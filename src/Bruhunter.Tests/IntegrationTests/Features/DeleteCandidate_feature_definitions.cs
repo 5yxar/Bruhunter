@@ -8,8 +8,6 @@ namespace Bruhunter.Tests.IntegrationTests.Feautures
 {
     public partial class DeleteCandidates_feature
     {
-        private CandidateDocument candidateBeforeAddition;
-
         public async Task Given_candidate_in_database(CandidateDocument candidateDocument)
         {
             await CandidatesService.AddCandidate(candidateDocument);

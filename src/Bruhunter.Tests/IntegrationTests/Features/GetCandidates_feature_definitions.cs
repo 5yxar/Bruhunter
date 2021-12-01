@@ -10,10 +10,12 @@ namespace Bruhunter.Tests.IntegrationTests.Feautures
     public partial class GetCandidates_feature
     {
         IEnumerable<CandidateDocument> candidates;
+
         public async Task Given_candidate_in_database(CandidateDocument candidateDocument)
         {
             await CandidatesRepository.AddCandidate(candidateDocument);
         }
+
         public async Task When_receive_candidates()
         {
             candidates = await CandidatesService.GetAllCandidates();
