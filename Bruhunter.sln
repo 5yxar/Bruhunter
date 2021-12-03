@@ -5,34 +5,34 @@ VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{162BACB1-7413-4CC2-9E2C-90419FD9D9A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.Api", "src\Bruhunter.Api\Bruhunter.Api.csproj", "{9253852D-F999-4480-932F-D7B3D7F9EF92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bruhunter.Api", "src\Bruhunter.Api\Bruhunter.Api.csproj", "{9253852D-F999-4480-932F-D7B3D7F9EF92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.Application", "src\Bruhunter.Application\Bruhunter.Application.csproj", "{C3C12FF7-640D-493E-B32D-449BDA504583}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bruhunter.Application", "src\Bruhunter.Application\Bruhunter.Application.csproj", "{C3C12FF7-640D-493E-B32D-449BDA504583}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.DataAccessLayer", "src\Bruhunter.DataAccessLayer\Bruhunter.DataAccessLayer.csproj", "{CF5F8C22-130B-47C9-98A5-A21766CFDA42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bruhunter.DataAccessLayer", "src\Bruhunter.DataAccessLayer\Bruhunter.DataAccessLayer.csproj", "{CF5F8C22-130B-47C9-98A5-A21766CFDA42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.Tests", "src\Bruhunter.Tests\Bruhunter.Tests.csproj", "{A5FCE3C7-476B-4643-8C98-36D97E03925C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bruhunter.Tests", "src\Bruhunter.Tests\Bruhunter.Tests.csproj", "{A5FCE3C7-476B-4643-8C98-36D97E03925C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.Shared", "src\Bruhunter.Shared\Bruhunter.Shared.csproj", "{05F84059-90E4-4C5A-B5DA-7813B3AA6164}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bruhunter.Shared", "src\Bruhunter.Shared\Bruhunter.Shared.csproj", "{05F84059-90E4-4C5A-B5DA-7813B3AA6164}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruhunter.WebApp", "src\Bruhunter.WebApp\Bruhunter.WebApp.csproj", "{CCD7D484-3F6C-4841-9145-65CA71208790}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bruhunter.WebApp", "src\Bruhunter.WebApp\Bruhunter.WebApp.csproj", "{CCD7D484-3F6C-4841-9145-65CA71208790}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{353FC4A4-0006-4D8E-B4FA-2BD6DA7107A3}"
-ProjectSection(SolutionItems) = preProject
-	.github\pull_request_template.md = .github\pull_request_template.md
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		.github\pull_request_template.md = .github\pull_request_template.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEMPLATE", "{2F602039-2662-4CFC-82F2-A0496E7BF3B3}"
-ProjectSection(SolutionItems) = preProject
-	.github\ISSUE_TEMPLATE\bug_report.yml = .github\ISSUE_TEMPLATE\bug_report.yml
-	.github\ISSUE_TEMPLATE\config.yml = .github\ISSUE_TEMPLATE\config.yml
-	.github\ISSUE_TEMPLATE\feature_request.yml = .github\ISSUE_TEMPLATE\feature_request.yml
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\bug_report.yml = .github\ISSUE_TEMPLATE\bug_report.yml
+		.github\ISSUE_TEMPLATE\config.yml = .github\ISSUE_TEMPLATE\config.yml
+		.github\ISSUE_TEMPLATE\feature_request.yml = .github\ISSUE_TEMPLATE\feature_request.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{95A530CC-5CD2-4F2D-A7D0-A120ED4F81FE}"
-ProjectSection(SolutionItems) = preProject
-	.github\workflows\check-in.yml = .github\workflows\check-in.yml
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\check-in.yml = .github\workflows\check-in.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

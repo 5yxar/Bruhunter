@@ -1,0 +1,40 @@
+﻿@using Bruhunter.Shared.Documents
+@using System.Net.Http.Headers
+
+@inject HttpClient Http
+
+<div class="simple-form">
+
+    <div class="form-group">
+        <label for="first-name">Имя</label>
+        <input @bind="@candidateDocument.FirstName" type="text" class="form-control" id="first-name" />
+    </div>
+
+    <div class="form-group">
+        <label for="second-name">Фамилия</label>
+        <input @bind="@candidateDocument.SecondName" type="text" class="form-control" id="second-name" />
+    </div>
+
+    <button @onclick="SaveMovie" class="btn btn-primary">Submit</button>
+    <button @onclick="СandidateModal.CancelAsync" class="btn btn-secondary">Cancel</button>
+</div>
+
+@code 
+{
+    [CascadingParameter] BlazoredModalInstance СandidateModal { get; set; }
+
+    [Parameter] public CandidateDocument candidateDocument { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        candidateDocument = await Http.GetFromJsonAsync<CandidateDocument>("api/candidates/" + candidateDocument.Id);
+    }
+
+    async Task SaveMovie()
+    {
+        var jsonContent = JsonContent.Create(candidateDocument, new MediaTypeHeaderValue("application/json"));
+
+        await Http.PutAsync("api/candidates/" + candidateDocument.Id, jsonContent);
+        await СandidateModal.CloseAsync(ModalResult.Ok<CandidateDocument>(candidateDocument));
+    }
+}

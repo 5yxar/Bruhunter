@@ -1,5 +1,6 @@
 ﻿@page "/candidates"
 @using System.Net.Http.Headers
+@using Bruhunter.WebApp.Pages
 @namespace Bruhunter.Shared.Documents
 
 @inject HttpClient Http
@@ -26,7 +27,6 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Имя</th>
                 <th>Фамилия</th>
             </tr>
@@ -35,10 +35,10 @@ else
             @foreach (var candidate in candidates)
             {
                 <tr>
-                    <td>@candidate.Id</td>
                     <td>@candidate.FirstName</td>
                     <td>@candidate.SecondName</td>
-                    <button @onclick="@(e => DeleteCandidate(candidate.Id))">Удалить</button>
+                    <td><button @onclick="@(() => ShowEditCandidate(candidate))" class="btn btn-primary">Изменить</button></td>
+                    <td><button @onclick="@(e => DeleteCandidate(candidate.Id))">Удалить</button></td>
                 </tr>
             }
         </tbody>
@@ -88,5 +88,27 @@ else
     {
         await Http.DeleteAsync("api/candidates/" + id);
         await LoadCandidates();
+    }
+
+    [CascadingParameter] public IModalService Modal { get; set; }
+
+    async Task ShowEditCandidate(CandidateDocument candidateDocument)
+    {
+        var parameters = new ModalParameters();
+
+        parameters.Add(nameof(EditCandidateModal.candidateDocument), candidateDocument);
+
+        var candidateModal = Modal.Show<EditCandidateModal>("Изменение кандидата", parameters);
+
+        var result = await candidateModal.Result;
+
+        if (result.Cancelled)
+        {
+            Console.WriteLine("Modal was cancelled");
+        }
+        else
+        {
+            await LoadCandidates();
+        }
     }
 }

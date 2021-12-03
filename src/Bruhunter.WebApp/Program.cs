@@ -1,3 +1,4 @@
+using Blazored.Modal;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,8 @@ namespace Bruhunter.WebApp
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
             builder.RootComponents.Add<App>("#app");
+
+            builder.Services.AddBlazoredModal();
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri ("http://localhost:5002") });
 
