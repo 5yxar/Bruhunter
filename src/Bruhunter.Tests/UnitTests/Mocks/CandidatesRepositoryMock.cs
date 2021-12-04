@@ -37,5 +37,10 @@ namespace Bruhunter.Tests.UnitTests
         {
             throw new NotImplementedException();
         }
+
+        public Task ChangeCandidate(CandidateDocument candidateDocument)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

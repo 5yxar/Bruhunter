@@ -31,14 +31,14 @@ namespace Bruhunter.DataAccessLayer
             return collection.FindAll().ToList();
         }
 
+        public async Task ChangeCandidate(CandidateDocument candidateDocument)
+        {
+            collection.Upsert(candidateDocument);
+        }
+
         public async Task DeleteCandidate(Guid guid)
         {
             collection.Delete(guid);
-        }
-
-        public Task<CandidateDocument> GetCandidate()
-        {
-            throw new NotImplementedException();
         }
     }
 }

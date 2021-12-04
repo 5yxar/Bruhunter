@@ -31,6 +31,11 @@ namespace Bruhunter.Application
             return await candidatesRepository.GetAllCandidates();
         }
 
+        public async Task ChangeCandidate(CandidateDocument candidateDocument)
+        {
+            await candidatesRepository.ChangeCandidate(candidateDocument);
+        }
+
         public async Task DeleteCandidate(Guid guid)
         {
             await candidatesRepository.DeleteCandidate(guid);
