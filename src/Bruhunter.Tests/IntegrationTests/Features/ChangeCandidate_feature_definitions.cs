@@ -11,9 +11,11 @@ namespace Bruhunter.Tests.IntegrationTests.Features
     public partial class ChangeCandidate_feature
     {
         private Guid candidateId;
+
         public async Task Given_candidate_in_database(CandidateDocument candidateDocument)
         {
             candidateId = candidateDocument.Id;
+
             await CandidatesRepository.AddCandidate(candidateDocument);
         }
 
@@ -25,6 +27,7 @@ namespace Bruhunter.Tests.IntegrationTests.Features
         public async Task Then_candidate_first_name_in_database_should_be(string candidateFirstName)
         {
             var receivedCandidate = await CandidatesRepository.GetCandidate(candidateId);
+
             Assert.Equal(candidateFirstName, receivedCandidate.FirstName);
         }
     }
