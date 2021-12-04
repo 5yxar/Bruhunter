@@ -49,13 +49,20 @@ else
 
 @code
 {
-    List<CandidateDocument> candidates;
+    private List<CandidateDocument> candidates;
     private string name;
     private string lastName;
 
     protected override async Task OnInitializedAsync()
     {
         await LoadCandidates();
+    }
+
+    [CascadingParameter] public IModalService Modal { get; set; }
+
+    private async Task LoadCandidates()
+    {
+        candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
     }
 
     private async Task AddCandidate()
@@ -81,18 +88,11 @@ else
         }
     }
 
-    private async Task LoadCandidates()
-    {
-        candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
-    }
-
     private async Task DeleteCandidate(Guid id)
     {
         await Http.DeleteAsync("api/candidates/" + id);
         await LoadCandidates();
     }
-
-    [CascadingParameter] public IModalService Modal { get; set; }
 
     async Task ChangeCandidateByModal(Guid id)
     {

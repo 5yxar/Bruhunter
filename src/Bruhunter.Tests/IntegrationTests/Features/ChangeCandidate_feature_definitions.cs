@@ -10,7 +10,7 @@ namespace Bruhunter.Tests.IntegrationTests.Features
 {
     public partial class ChangeCandidate_feature
     {
-        Guid candidateId;
+        private Guid candidateId;
         public async Task Given_candidate_in_database(CandidateDocument candidateDocument)
         {
             candidateId = candidateDocument.Id;

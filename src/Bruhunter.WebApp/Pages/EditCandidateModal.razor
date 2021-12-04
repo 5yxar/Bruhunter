@@ -4,39 +4,44 @@
 @inject HttpClient Http
 
 <div class="simple-form">
+    @if (candidateDocument == null)
+    {
+        <p><em>Нет данных</em></p>
+    }
+    else
+    {
+        <div class="form-group">
+            <label for="first-name">Имя</label>
+            <input @bind="@candidateDocument.FirstName" type="text" class="form-control" id="first-name" />
+        </div>
 
-    <div class="form-group">
-        <label for="first-name">Имя</label>
-        <input @bind="@candidateDocument.FirstName" type="text" class="form-control" id="first-name" />
-    </div>
+        <div class="form-group">
+            <label for="second-name">Фамилия</label>
+            <input @bind="@candidateDocument.SecondName" type="text" class="form-control" id="second-name" />
+        </div>
 
-    <div class="form-group">
-        <label for="second-name">Фамилия</label>
-        <input @bind="@candidateDocument.SecondName" type="text" class="form-control" id="second-name" />
-    </div>
-
-    <button @onclick="SaveChanges" class="btn btn-primary">Сохранить</button>
-    <button @onclick="СandidateModal.CancelAsync" class="btn btn-secondary">Отменить</button>
+        <button @onclick="SaveChanges" class="btn btn-primary">Сохранить</button>
+        <button @onclick="CandidateModal.CancelAsync" class="btn btn-secondary">Отменить</button>
+    }
 </div>
 
-@code 
+@code
 {
-    [CascadingParameter] BlazoredModalInstance СandidateModal { get; set; }
-
-    [Parameter] public Guid Id { get; set; }
-
-    CandidateDocument candidateDocument = new CandidateDocument();
+    private CandidateDocument candidateDocument;
 
     protected override async Task OnInitializedAsync()
     {
         candidateDocument = await Http.GetFromJsonAsync<CandidateDocument>("api/candidates/" + Id);
     }
 
+    [CascadingParameter] private BlazoredModalInstance CandidateModal { get; set; }
+    [Parameter] public Guid Id { get; set; }
+
     async Task SaveChanges()
     {
         var jsonContent = JsonContent.Create(candidateDocument, new MediaTypeHeaderValue("application/json"));
 
         await Http.PutAsync("api/candidates/" + candidateDocument.Id, jsonContent);
-        await СandidateModal.CloseAsync(ModalResult.Ok<CandidateDocument>(candidateDocument));
+        await CandidateModal.CloseAsync(ModalResult.Ok<CandidateDocument>(candidateDocument));
     }
 }
