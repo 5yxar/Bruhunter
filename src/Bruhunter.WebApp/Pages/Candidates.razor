@@ -1,5 +1,6 @@
 ﻿@page "/candidates"
 @using System.Net.Http.Headers
+@using Bruhunter.WebApp.Pages
 @namespace Bruhunter.Shared.Documents
 
 @inject HttpClient Http
@@ -26,7 +27,6 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Имя</th>
                 <th>Фамилия</th>
             </tr>
@@ -35,10 +35,12 @@ else
             @foreach (var candidate in candidates)
             {
                 <tr>
-                    <td>@candidate.Id</td>
                     <td>@candidate.FirstName</td>
                     <td>@candidate.SecondName</td>
-                    <button @onclick="@(e => DeleteCandidate(candidate.Id))">Удалить</button>
+                    <td align="right">
+                        <button @onclick="@(() => ChangeCandidateByModal(candidate.Id))" class="btn btn-primary">Изменить</button>
+                        <button @onclick="@(() => DeleteCandidate(candidate.Id))" class="btn btn-danger">Удалить</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -47,13 +49,20 @@ else
 
 @code
 {
-    List<CandidateDocument> candidates;
+    private List<CandidateDocument> candidates;
     private string name;
     private string lastName;
 
     protected override async Task OnInitializedAsync()
     {
         await LoadCandidates();
+    }
+
+    [CascadingParameter] public IModalService Modal { get; set; }
+
+    private async Task LoadCandidates()
+    {
+        candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
     }
 
     private async Task AddCandidate()
@@ -79,14 +88,25 @@ else
         }
     }
 
-    private async Task LoadCandidates()
-    {
-        candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
-    }
-
     private async Task DeleteCandidate(Guid id)
     {
         await Http.DeleteAsync("api/candidates/" + id);
         await LoadCandidates();
+    }
+
+    async Task ChangeCandidateByModal(Guid id)
+    {
+        var parameters = new ModalParameters();
+
+        parameters.Add(nameof(EditCandidateModal.Id), id);
+
+        var candidateModal = Modal.Show<EditCandidateModal>("Изменение кандидата", parameters);
+
+        var result = await candidateModal.Result;
+
+        if (!result.Cancelled)
+        {
+            await LoadCandidates();
+        }
     }
 }

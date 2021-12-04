@@ -31,20 +31,20 @@ namespace Bruhunter.Api.Controllers
         [Route("{id}")]
         public async Task<CandidateDocument> GetCandidate(Guid id)
         {
-            throw new NotImplementedException();
-        }
-
-        [HttpPut]
-        [Route("{id}")]
-        public async Task ChangeCandidate(Guid id)
-        {
-            throw new NotImplementedException();
+            return await candidatesService.GetCandidate(id);
         }
 
         [HttpPost]
         public async Task CreateCandidate(CandidateDocument candidateDocument)
         {
            await candidatesService.AddCandidate(candidateDocument);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task ChangeCandidate(CandidateDocument candidateDocument)
+        {
+            await candidatesService.ChangeCandidate(candidateDocument);
         }
 
         [HttpDelete]
