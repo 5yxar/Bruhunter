@@ -15,7 +15,7 @@
         <input @bind="@candidateDocument.SecondName" type="text" class="form-control" id="second-name" />
     </div>
 
-    <button @onclick="SaveMovie" class="btn btn-primary">Сохранить</button>
+    <button @onclick="SaveChanges" class="btn btn-primary">Сохранить</button>
     <button @onclick="СandidateModal.CancelAsync" class="btn btn-secondary">Отменить</button>
 </div>
 
@@ -23,14 +23,16 @@
 {
     [CascadingParameter] BlazoredModalInstance СandidateModal { get; set; }
 
-    [Parameter] public CandidateDocument candidateDocument { get; set; }
+    [Parameter] public Guid Id { get; set; }
+
+    CandidateDocument candidateDocument = new CandidateDocument();
 
     protected override async Task OnInitializedAsync()
     {
-        candidateDocument = await Http.GetFromJsonAsync<CandidateDocument>("api/candidates/" + candidateDocument.Id);
+        candidateDocument = await Http.GetFromJsonAsync<CandidateDocument>("api/candidates/" + Id);
     }
 
-    async Task SaveMovie()
+    async Task SaveChanges()
     {
         var jsonContent = JsonContent.Create(candidateDocument, new MediaTypeHeaderValue("application/json"));
 
