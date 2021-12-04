@@ -26,7 +26,7 @@ namespace Bruhunter.Tests.IntegrationTests.Features
 
         private async Task Then_received_candidate_id_should_be_equal(Guid candidateId)
         {
-            Assert.Equal(candidateId,receivedCandidate.Id);
+            Assert.Equal(candidateId, receivedCandidate.Id);
         }
     }
 }
