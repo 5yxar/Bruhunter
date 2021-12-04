@@ -8,7 +8,8 @@ namespace Bruhunter.DataAccessLayer
     public interface ICandidatesRepository
     {
         Task AddCandidate(CandidateDocument candidateDocument);
-        Task DeleteCandidate(Guid guid);
+        Task<CandidateDocument> GetCandidate(Guid id);
         Task<IEnumerable<CandidateDocument>> GetAllCandidates();
+        Task DeleteCandidate(Guid guid);
     }
 }

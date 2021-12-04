@@ -21,6 +21,11 @@ namespace Bruhunter.Application
             await candidatesRepository.AddCandidate(candidateDocument);
         }
 
+        public async Task<CandidateDocument> GetCandidate(Guid id)
+        {
+            return await candidatesRepository.GetCandidate(id);
+        }
+
         public async Task<IEnumerable<CandidateDocument>> GetAllCandidates()
         {
             return await candidatesRepository.GetAllCandidates();

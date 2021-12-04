@@ -32,5 +32,10 @@ namespace Bruhunter.Tests.UnitTests
         {
             candidates.RemoveAll(x => x.Id == guid);
         }
+
+        public Task<CandidateDocument> GetCandidate(Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

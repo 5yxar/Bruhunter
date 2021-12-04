@@ -21,6 +21,11 @@ namespace Bruhunter.DataAccessLayer
             collection.Insert(candidateDocument);
         }
 
+        public async Task<CandidateDocument> GetCandidate(Guid id)
+        {
+            return collection.FindById(id);
+        }
+
         public async Task<IEnumerable<CandidateDocument>> GetAllCandidates()
         {
             return collection.FindAll().ToList();
@@ -29,6 +34,11 @@ namespace Bruhunter.DataAccessLayer
         public async Task DeleteCandidate(Guid guid)
         {
             collection.Delete(guid);
+        }
+
+        public Task<CandidateDocument> GetCandidate()
+        {
+            throw new NotImplementedException();
         }
     }
 }
