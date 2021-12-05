@@ -28,6 +28,7 @@ namespace Bruhunter.Api
             AddServiceDependencies(services);
             services.AddCors(c => c.AddDefaultPolicy(p => p.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod()));
             services.AddControllers();
+            services.AddLogging();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Bruhunter.Api", Version = "v1" });
@@ -60,10 +61,10 @@ namespace Bruhunter.Api
 
         private void AddServiceDependencies(IServiceCollection services)
         {
-            services.AddSingleton<CandidatesService>();
+            services.AddScoped<CandidatesService>();
 
             var liteDb = new LiteDatabase(@$"Filename=MyData.db; Connection=Shared;");
-            services.AddSingleton<ICandidatesRepository>(new CandidatesRepository(liteDb));
+            services.AddScoped<ICandidatesRepository>(_ => new CandidatesRepository(liteDb));
         }
     }
 }

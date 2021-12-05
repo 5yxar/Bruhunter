@@ -3,42 +3,72 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bruhunter.Shared.Documents;
 using Bruhunter.DataAccessLayer;
+using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace Bruhunter.Application
 {
     public class CandidatesService
     {
         private readonly ICandidatesRepository candidatesRepository;
+        private readonly ILogger<CandidatesService> logger;
 
-        public CandidatesService(ICandidatesRepository candidatesRepository)
+        public CandidatesService(ICandidatesRepository candidatesRepository, ILogger<CandidatesService> logger)
         {
             this.candidatesRepository = candidatesRepository;
+            this.logger = logger;
         }
 
         public async Task AddCandidate(CandidateDocument candidateDocument)
         {
-            candidateDocument.Id = Guid.NewGuid();
+            logger.LogInformation("Adding candidate {candidateDocument} to database ...", candidateDocument);
+
+            var newGuid = Guid.NewGuid();
+
+            candidateDocument.Id = newGuid;
             await candidatesRepository.AddCandidate(candidateDocument);
+
+            logger.LogDebug("Candidate {candidateDocument} with id = {newGuid} was added to database.", candidateDocument, candidateDocument.Id);
         }
 
         public async Task<CandidateDocument> GetCandidate(Guid id)
         {
-            return await candidatesRepository.GetCandidate(id);
+            logger.LogInformation("Getting candidate witn id = {id} from database ...", id);
+
+            var receivedCandidate = await candidatesRepository.GetCandidate(id);
+
+            logger.LogDebug("Candidate {receivedCandidate} with id = {id} was received from database.", receivedCandidate, id);
+
+            return receivedCandidate;
         }
 
         public async Task<IEnumerable<CandidateDocument>> GetAllCandidates()
         {
-            return await candidatesRepository.GetAllCandidates();
+            logger.LogInformation("Getting all candidates from database ...");
+
+            var receivedCandidates = await candidatesRepository.GetAllCandidates();
+
+            logger.LogDebug("{candidatesCount} candidates was received from database.", receivedCandidates.ToList().Count());
+
+            return receivedCandidates;
         }
 
         public async Task ChangeCandidate(CandidateDocument candidateDocument)
         {
+            logger.LogInformation("Changing candidate with id = {candidateDocument.Id} in database ...", candidateDocument.Id);
+
             await candidatesRepository.ChangeCandidate(candidateDocument);
+
+            logger.LogDebug("Candidate with id = {candidateDocument.Id} was changed in database.", candidateDocument.Id);
         }
 
         public async Task DeleteCandidate(Guid guid)
         {
+            logger.LogInformation("Deleting candidate with id {guid} in database ...", guid);
+
             await candidatesRepository.DeleteCandidate(guid);
+
+            logger.LogDebug("Candidate with id = {guid} was deleted in database.", guid);
         }
     }
 }
