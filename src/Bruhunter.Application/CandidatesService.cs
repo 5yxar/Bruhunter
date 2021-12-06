@@ -48,18 +48,19 @@ namespace Bruhunter.Application
 
             var receivedCandidates = await candidatesRepository.GetAllCandidates();
 
-            logger.LogDebug("{candidatesCount} candidates was received from database.", receivedCandidates.ToList().Count());
+            logger.LogDebug("{candidatesCount} candidates was received from database.", receivedCandidates.Count());
 
             return receivedCandidates;
         }
 
         public async Task ChangeCandidate(CandidateDocument candidateDocument)
         {
-            logger.LogInformation("Changing candidate with id = {candidateDocument.Id} in database ...", candidateDocument.Id);
+            logger.LogInformation("Change the candidate with id = {candidateDocument.Id} in the database ...", candidateDocument.Id);
 
             await candidatesRepository.ChangeCandidate(candidateDocument);
 
-            logger.LogDebug("Candidate with id = {candidateDocument.Id} was changed in database.", candidateDocument.Id);
+            logger.LogDebug("Candidate with id = {id} was changed to FirstName = {FirstName}, SecondName {SecondName}.",
+                            candidateDocument.Id, candidateDocument.FirstName,candidateDocument.SecondName);
         }
 
         public async Task DeleteCandidate(Guid guid)
