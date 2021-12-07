@@ -21,14 +21,16 @@ namespace Bruhunter.Application
 
         public async Task AddCandidate(CandidateDocument candidateDocument)
         {
-            logger.LogInformation("Adding candidate {candidateDocument} to database ...", candidateDocument);
+            logger.LogInformation("Adding candidate {candidateDocument} to database ...",
+                                   candidateDocument);
 
             var newGuid = Guid.NewGuid();
 
             candidateDocument.Id = newGuid;
             await candidatesRepository.AddCandidate(candidateDocument);
 
-            logger.LogDebug("Candidate {candidateDocument} with id = {newGuid} was added to database.", candidateDocument, candidateDocument.Id);
+            logger.LogDebug("Candidate {candidateDocument} with id = {newGuid} was added to database.",
+                            candidateDocument, candidateDocument.Id);
         }
 
         public async Task<CandidateDocument> GetCandidate(Guid id)
@@ -37,7 +39,8 @@ namespace Bruhunter.Application
 
             var receivedCandidate = await candidatesRepository.GetCandidate(id);
 
-            logger.LogDebug("Candidate {receivedCandidate} with id = {id} was received from database.", receivedCandidate, id);
+            logger.LogDebug("Candidate {receivedCandidate} with id = {id} was received from database.", 
+                            receivedCandidate, id);
 
             return receivedCandidate;
         }
@@ -48,19 +51,20 @@ namespace Bruhunter.Application
 
             var receivedCandidates = await candidatesRepository.GetAllCandidates();
 
-            logger.LogDebug("{candidatesCount} candidates was received from database.", receivedCandidates.Count());
+            logger.LogDebug("{candidatesCount} candidates was received from database.", 
+                            receivedCandidates.Count());
 
             return receivedCandidates;
         }
 
         public async Task ChangeCandidate(CandidateDocument candidateDocument)
         {
-            logger.LogInformation("Change the candidate with id = {candidateDocument.Id} in the database ...", candidateDocument.Id);
+            logger.LogInformation("Changing candidate {candidateDocument} in the database ...", 
+                                    candidateDocument);
 
             await candidatesRepository.ChangeCandidate(candidateDocument);
 
-            logger.LogDebug("Candidate with id = {id} was changed to FirstName = {FirstName}, SecondName {SecondName}.",
-                            candidateDocument.Id, candidateDocument.FirstName,candidateDocument.SecondName);
+            logger.LogDebug("Candidate was changed to {candidateDocument}.", candidateDocument);
         }
 
         public async Task DeleteCandidate(Guid guid)
