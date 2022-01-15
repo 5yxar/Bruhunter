@@ -1,0 +1,40 @@
+﻿@page "/vacancies"
+@namespace Bruhunter.Shared.Documents
+
+@inject IJSRuntime JsRuntime
+
+<h1>Витрина вакансий</h1>
+
+<p></p>
+
+<button @onclick="AddVacancy" class="btn btn-primary">Добавить новую вакансию</button>
+
+@if (vacancies == null)
+{
+    <br><br><p><em>Нет данных о вакансиях</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Вакансия</th>
+                <th>Адрес</th>
+                <th>Описание</th>
+                <th>Планируемая дата закрытия вакансии</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+}
+
+@code
+{
+    private List<CandidateDocument> vacancies;
+
+    private async Task AddVacancy()
+    {
+        await JsRuntime.InvokeVoidAsync("alert", "не хочу");
+    }
+}

@@ -61,6 +61,7 @@ namespace Bruhunter.Api
         private void AddServiceDependencies(IServiceCollection services)
         {
             services.AddSingleton<CandidatesService>();
+            services.AddSingleton<VacanciesService>();
 
             var liteDb = new LiteDatabase(@$"Filename=MyData.db; Connection=Shared;");
             services.AddSingleton<ICandidatesRepository>(new CandidatesRepository(liteDb));
