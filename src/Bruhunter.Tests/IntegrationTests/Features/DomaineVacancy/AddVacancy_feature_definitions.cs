@@ -20,11 +20,11 @@ namespace Bruhunter.Tests.IntegrationTests.Features.DomaineCandidate
             await VacanciesService.AddVacancy(vacancyBeforeAddition);
         }
 
-        public async Task Then_database_should_contain_vacancy_with(Guid id)
+        public async Task Then_database_should_contain_vacancy()
         {
-            var vacancies = await VacanciesRepository.GetVacancy(id);
+            var vacancies = await VacanciesRepository.GetAllVacancies();
 
-            Assert.Equal(id,vacancies.Id);
+            Assert.Single(vacancies);
         }
     }
 }
