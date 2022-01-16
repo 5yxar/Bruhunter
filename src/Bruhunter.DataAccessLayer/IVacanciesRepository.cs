@@ -7,7 +7,8 @@ namespace Bruhunter.DataAccessLayer
 {
     public interface IVacanciesRepository
     {
-        Task<IEnumerable<VacancyDocument>>GetAllVacancies();
+        Task AddVacancy(VacancyDocument vacancyDocument);
         Task<VacancyDocument> GetVacancy(Guid id);
+        Task<IEnumerable<VacancyDocument>>GetAllVacancies();
     }
 }
