@@ -15,19 +15,19 @@ namespace Bruhunter.DataAccessLayer
             collection = db.GetCollection<VacancyDocument>("vacancies");
         }
 
-        public Task AddVacancy(VacancyDocument vacancyDocument)
+        public async Task AddVacancy(VacancyDocument vacancyDocument)
+        {
+            collection.Insert(vacancyDocument);
+        }
+
+        public async Task<VacancyDocument> GetVacancy(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<VacancyDocument> GetVacancy(Guid id)
+        public async Task<IEnumerable<VacancyDocument>> GetAllVacancies()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<VacancyDocument>> GetAllVacancies()
-        {
-            throw new NotImplementedException();
+            return collection.FindAll();
         }
     }
 }

@@ -15,14 +15,16 @@ namespace Bruhunter.Application
             this.vacanciesRepository = vacanciesRepository;
         }
 
-        public static Task AddVacancy(VacancyDocument VacancyDocument)
+        public async Task AddVacancy(VacancyDocument vacancyDocument)
         {
-            throw new NotImplementedException();
+            vacancyDocument.Id = Guid.NewGuid();
+
+            await vacanciesRepository.AddVacancy(vacancyDocument);
         }
 
-        public Task<IEnumerable<VacancyDocument>> GetAllVacancies()
+        public async Task<IEnumerable<VacancyDocument>> GetAllVacancies()
         {
-            throw new NotImplementedException();
+            return await vacanciesRepository.GetAllVacancies();
         }
     }
 }

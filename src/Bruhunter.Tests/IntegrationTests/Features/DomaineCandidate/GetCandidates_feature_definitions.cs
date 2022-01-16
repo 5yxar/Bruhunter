@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Bruhunter.Tests.IntegrationTests.Feautures
+namespace Bruhunter.Tests.IntegrationTests.Features.DomaineCandidate
 {
     public partial class GetCandidates_feature
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bruhunter.Tests.IntegrationTests.Features
+namespace Bruhunter.Tests.IntegrationTests.Features.DomaineCandidate
 {
     public partial class ChangeCandidate_feature : FeatureFixtureBase
     {

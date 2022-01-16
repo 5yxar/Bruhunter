@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Bruhunter.Tests.IntegrationTests.Feautures.DomaineCandidate
+namespace Bruhunter.Tests.IntegrationTests.Features.DomaineVacancy
 {
     public partial class GetVacancies_feature
     {

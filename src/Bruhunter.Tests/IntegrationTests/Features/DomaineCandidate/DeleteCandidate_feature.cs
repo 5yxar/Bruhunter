@@ -4,7 +4,7 @@ using LightBDD.XUnit2;
 using System;
 using System.Threading.Tasks;
 
-namespace Bruhunter.Tests.IntegrationTests.Feautures
+namespace Bruhunter.Tests.IntegrationTests.Features.DomaineCandidate
 {
     public partial class DeleteCandidates_feature : FeatureFixtureBase
     {
