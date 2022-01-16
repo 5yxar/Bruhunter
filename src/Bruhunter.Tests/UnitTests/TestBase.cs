@@ -1,12 +1,7 @@
 ﻿using Bruhunter.Application;
-using Bruhunter.DataAccessLayer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Bruhunter.Tests.UnitTests.Mocks;
 
-namespace Bruhunter.Tests.UnitTests.Mocks
+namespace Bruhunter.Tests.UnitTests
 {
     public class TestBase
     {

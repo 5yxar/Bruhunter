@@ -3,9 +3,9 @@ using Bruhunter.Shared.Documents;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Bruhunter.Tests.IntegrationTests.Feautures
+namespace Bruhunter.Tests.IntegrationTests.Features.DomaineCandidate
 {
-    public partial class AddCandidate_feature
+    public partial class AddVacancy_feature
     {
         private CandidateDocument candidateBeforeAddition;
 

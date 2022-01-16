@@ -1,7 +1,5 @@
 ﻿using Bruhunter.Application;
 using Bruhunter.Shared.Documents;
-using Bruhunter.Tests.UnitTests;
-using Bruhunter.Tests.UnitTests.Mocks;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
