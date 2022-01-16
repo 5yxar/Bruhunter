@@ -11,8 +11,7 @@ namespace Bruhunter.Tests.IntegrationTests.Features.DomaineCandidate
         public async Task Vacancy_should_be_saved_in_database()
         {
             await Runner.AddAsyncSteps(
-                    _ => Given_vacancy(GiveMe.Vacancy()
-                                             .Please()),
+                    _ => Given_vacancy(GiveMe.Vacancy().Please()),
                     _ => When_add_vacancy(),
                     _ => Then_database_should_contain_vacancy())
                 .RunAsync();
