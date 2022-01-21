@@ -51,11 +51,6 @@ else
 
     [CascadingParameter] public IModalService Modal { get; set; }
 
-    private async Task AddVacancy()
-    {
-        await JsRuntime.InvokeVoidAsync("alert", "не хочу");
-    }
-
     private async Task LoadVacancies()
     {
         vacancies = await Http.GetFromJsonAsync<List<VacancyDocument>>("api/vacancies/query");
