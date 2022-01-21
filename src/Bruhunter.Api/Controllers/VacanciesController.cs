@@ -15,14 +15,14 @@ namespace Bruhunter.Api.Controllers
 
         public VacanciesController(VacanciesService vacanciesService)
         {
-            throw new NotImplementedException();
+            this.vacanciesService = vacanciesService;
         }
 
         [HttpGet]
         [Route("query")]
         public async Task<IEnumerable<VacancyDocument>> GetAllVacancies()
         {
-            throw new NotImplementedException();
+            return await vacanciesService.GetAllVacancies();
         }
 
         [HttpGet]
@@ -35,7 +35,7 @@ namespace Bruhunter.Api.Controllers
         [HttpPost]
         public async Task CreateVacancy(VacancyDocument candidateDocument)
         {
-            throw new NotImplementedException();
+            await vacanciesService.AddVacancy(candidateDocument);
         }
 
         [HttpPut]

@@ -65,6 +65,7 @@ namespace Bruhunter.Api
 
             var liteDb = new LiteDatabase(@$"Filename=MyData.db; Connection=Shared;");
             services.AddSingleton<ICandidatesRepository>(new CandidatesRepository(liteDb));
+            services.AddSingleton<IVacanciesRepository>(new VacanciesRepository(liteDb));
         }
     }
 }

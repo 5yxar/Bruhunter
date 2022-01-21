@@ -1,13 +1,15 @@
 ﻿@page "/vacancies"
+@using System.Net.Http.Headers
+@using Bruhunter.WebApp.Pages
 @namespace Bruhunter.Shared.Documents
 
+@inject HttpClient Http
 @inject IJSRuntime JsRuntime
 
 <h1>Витрина вакансий</h1>
 
 <p></p>
-
-<button @onclick="AddVacancy" class="btn btn-primary">Добавить новую вакансию</button>
+<button @onclick="@(() => AddVacancyModal())" class="btn btn-primary">Добавить новую вакансию</button>
 
 @if (vacancies == null)
 {
@@ -25,16 +27,50 @@ else
             </tr>
         </thead>
         <tbody>
+            @foreach (var vacancy in vacancies)
+            {
+                <tr>
+                    <td>@vacancy.Title</td>
+                    <td>@vacancy.Address</td>
+                    <td>@vacancy.Description</td>
+                    <td>@vacancy.JobClosingDate.ToLongDateString()</td>
+                </tr>
+            }
         </tbody>
     </table>
 }
 
 @code
 {
-    private List<CandidateDocument> vacancies;
+    private List<VacancyDocument> vacancies;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadVacancies();
+    }
+
+    [CascadingParameter] public IModalService Modal { get; set; }
 
     private async Task AddVacancy()
     {
         await JsRuntime.InvokeVoidAsync("alert", "не хочу");
+    }
+
+    private async Task LoadVacancies()
+    {
+        vacancies = await Http.GetFromJsonAsync<List<VacancyDocument>>("api/vacancies/query");
+    }
+
+    async Task AddVacancyModal()
+    {    
+        Console.WriteLine("start");
+        var vacancyModal = Modal.Show<AddVacancyModal>("Добавление вакансии");
+
+        var result = await vacancyModal.Result;
+
+        if (!result.Cancelled)
+        {
+            await LoadVacancies();
+        }
     }
 }
