@@ -21,11 +21,6 @@ namespace Bruhunter.Application
             await candidatesRepository.AddCandidate(candidateDocument);
         }
 
-        public Task<IEnumerable<VacancyDocument>> GetAllVacancies()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<CandidateDocument> GetCandidate(Guid id)
         {
             return await candidatesRepository.GetCandidate(id);

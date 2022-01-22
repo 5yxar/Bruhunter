@@ -10,5 +10,7 @@ namespace Bruhunter.DataAccessLayer
         Task AddVacancy(VacancyDocument vacancyDocument);
         Task<VacancyDocument> GetVacancy(Guid id);
         Task<IEnumerable<VacancyDocument>>GetAllVacancies();
+        Task ChangeVacancy(VacancyDocument vacancyDocument);
+        Task DeleteVacancy(Guid id);
     }
 }

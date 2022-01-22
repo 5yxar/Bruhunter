@@ -22,12 +22,22 @@ namespace Bruhunter.DataAccessLayer
 
         public async Task<VacancyDocument> GetVacancy(Guid id)
         {
-            throw new NotImplementedException();
+            return collection.FindById(id);
         }
 
         public async Task<IEnumerable<VacancyDocument>> GetAllVacancies()
         {
             return collection.FindAll();
+        }
+
+        public async Task ChangeVacancy(VacancyDocument vacancyDocument)
+        {
+            collection.Update(vacancyDocument);
+        }
+
+        public async Task DeleteVacancy(Guid id)
+        {
+            collection.Delete(id);
         }
     }
 }
