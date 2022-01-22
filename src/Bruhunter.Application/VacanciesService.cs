@@ -22,9 +22,24 @@ namespace Bruhunter.Application
             await vacanciesRepository.AddVacancy(vacancyDocument);
         }
 
+        public Task DeleteVacancy(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ChangeVacancy(VacancyDocument vacancyDocument)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<VacancyDocument>> GetAllVacancies()
         {
             return await vacanciesRepository.GetAllVacancies();
+        }
+
+        public Task<VacancyDocument> GetVacancy(Guid candidateId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
