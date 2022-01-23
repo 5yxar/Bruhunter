@@ -1,5 +1,6 @@
 ﻿using Bruhunter.Application;
 using Bruhunter.Tests.UnitTests.Mocks;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Bruhunter.Tests.UnitTests
 {
@@ -8,7 +9,7 @@ namespace Bruhunter.Tests.UnitTests
         public TestBase()
         {
             CandidatesRepositoryMock = new CandidatesRepositoryMock();
-            CandidatesService = new CandidatesService(CandidatesRepositoryMock);
+            CandidatesService = new CandidatesService(CandidatesRepositoryMock, NullLogger<CandidatesService>.Instance);
         }
 
         protected CandidatesService CandidatesService { get; private set; }

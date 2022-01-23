@@ -2,7 +2,7 @@
 
 namespace Bruhunter.Shared.Documents
 {
-    public class CandidateDocument
+    public record CandidateDocument
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

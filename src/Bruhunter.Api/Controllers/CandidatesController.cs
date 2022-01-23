@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Bruhunter.Shared;
 using Bruhunter.Shared.Documents;
 using Bruhunter.Application;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
-using System.Net.Http;
 
 namespace Bruhunter.Api.Controllers
 {

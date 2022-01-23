@@ -3,6 +3,7 @@ using Bruhunter.DataAccessLayer;
 using Bruhunter.Tests.Common;
 using LightBDD.XUnit2;
 using LiteDB;
+using Microsoft.Extensions.Logging.Abstractions;
 using System.IO;
 
 namespace Bruhunter.Tests.IntegrationTests
@@ -15,7 +16,7 @@ namespace Bruhunter.Tests.IntegrationTests
         {
             GiveMe = new DomainEntitiesBuilder();
             CandidatesRepository = new CandidatesRepository(new LiteDatabase(new MemoryStream()));
-            CandidatesService = new CandidatesService(CandidatesRepository);
+            CandidatesService = new CandidatesService(CandidatesRepository, NullLogger<CandidatesService>.Instance);
             VacanciesRepository = new VacanciesRepository(new LiteDatabase(new MemoryStream()));
             VacanciesService = new VacanciesService(VacanciesRepository);
         }

@@ -28,6 +28,7 @@ namespace Bruhunter.Api
             AddServiceDependencies(services);
             services.AddCors(c => c.AddDefaultPolicy(p => p.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod()));
             services.AddControllers();
+            services.AddLogging();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Bruhunter.Api", Version = "v1" });
