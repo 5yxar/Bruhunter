@@ -16,7 +16,7 @@
 <label>Введите фамилию:</label>
 <input @bind="lastName" />
 <br>
-<button @onclick="AddCandidate" class="btn btn-primary">Добавить нового кандидата</button>
+<button @onclick="AddCandidate" class="btn btn-primary">Добавить нового кандидата</button><br><br>
 
 @if (candidates == null)
 {
@@ -29,6 +29,7 @@ else
             <tr>
                 <th>Имя</th>
                 <th>Фамилия</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
