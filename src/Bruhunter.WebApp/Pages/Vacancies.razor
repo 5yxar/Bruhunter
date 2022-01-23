@@ -9,11 +9,11 @@
 <h1>Витрина вакансий</h1>
 
 <p></p>
-<button @onclick="@(() => AddVacancyModal())" class="btn btn-primary">Добавить новую вакансию</button>
+<button @onclick="@(() => AddVacancyByModal())" class="btn btn-primary">Добавить новую вакансию</button><br><br>
 
 @if (vacancies == null)
 {
-    <br><br><p><em>Нет данных о вакансиях</em></p>
+    <p><em>Нет данных о вакансиях</em></p>
 }
 else
 {
@@ -24,6 +24,7 @@ else
                 <th>Адрес</th>
                 <th>Описание</th>
                 <th>Планируемая дата закрытия вакансии</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -34,6 +35,10 @@ else
                     <td>@vacancy.Address</td>
                     <td>@vacancy.Description</td>
                     <td>@vacancy.JobClosingDate.ToLongDateString()</td>
+                    <td>
+                        <button @onclick="@(() => ChangeVacancyByModal(vacancy.Id))" class="btn btn-primary">Изменить</button>
+                        <button @onclick="@(() => DeleteVacancy(vacancy.Id))" class="btn btn-danger">Удалить</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -51,13 +56,8 @@ else
 
     [CascadingParameter] public IModalService Modal { get; set; }
 
-    private async Task LoadVacancies()
+    async Task AddVacancyByModal()
     {
-        vacancies = await Http.GetFromJsonAsync<List<VacancyDocument>>("api/vacancies/query");
-    }
-
-    async Task AddVacancyModal()
-    {    
         Console.WriteLine("start");
         var vacancyModal = Modal.Show<AddVacancyModal>("Добавление вакансии");
 
@@ -67,5 +67,32 @@ else
         {
             await LoadVacancies();
         }
+    }
+
+    private async Task LoadVacancies()
+    {
+        vacancies = await Http.GetFromJsonAsync<List<VacancyDocument>>("api/vacancies/query");
+    }
+
+    async Task ChangeVacancyByModal(Guid id)
+    {
+        var parameters = new ModalParameters();
+
+        parameters.Add(nameof(EditCandidateModal.Id), id);
+
+        var vacancyModal = Modal.Show<EditVacancyModal>("Изменение вакансии", parameters);
+
+        var result = await vacancyModal.Result;
+
+        if (!result.Cancelled)
+        {
+            await LoadVacancies();
+        }
+    }
+
+    private async Task DeleteVacancy(Guid id)
+    {
+        await Http.DeleteAsync("api/vacancies/" + id);
+        await LoadVacancies();
     }
 }

@@ -29,7 +29,7 @@ namespace Bruhunter.Api.Controllers
         [Route("{id}")]
         public async Task<VacancyDocument> GetVacancy(Guid id)
         {
-            throw new NotImplementedException();
+            return await vacanciesService.GetVacancy(id);
         }
 
         [HttpPost]
@@ -42,14 +42,14 @@ namespace Bruhunter.Api.Controllers
         [Route("{id}")]
         public async Task ChangeVacancy(VacancyDocument candidateDocument)
         {
-            throw new NotImplementedException();
+            await vacanciesService.ChangeVacancy(candidateDocument);
         }
 
         [HttpDelete]
         [Route("{id}")]
         public async Task DeleteVacancy(Guid id)
         {
-            throw new NotImplementedException();
+            await vacanciesService.DeleteVacancy(id);
         }
     }
 }
