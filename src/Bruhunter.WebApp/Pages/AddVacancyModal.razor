@@ -52,7 +52,7 @@
         }
         else if (vacancyDocument.JobClosingDate < DateTime.Today)
         {
-            await JsRuntime.InvokeVoidAsync("alert", "Указана устаревшая дата планируемой даты закрытия вакансии");
+            await JsRuntime.InvokeVoidAsync("alert", "Планируемая дата закрытия вакансии должна быть в будущем");
         }
         else
         {

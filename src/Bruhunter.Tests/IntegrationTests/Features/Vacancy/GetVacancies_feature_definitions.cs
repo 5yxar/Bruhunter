@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Bruhunter.Tests.IntegrationTests.Features.DomaineVacancy
+namespace Bruhunter.Tests.IntegrationTests.Features.Vacancy
 {
     public partial class GetVacancies_feature
     {
@@ -23,7 +23,7 @@ namespace Bruhunter.Tests.IntegrationTests.Features.DomaineVacancy
 
         public async Task Then_received_vacancies_count_should_be(int vacanciesCount)
         {
-            Assert.Equal(vacanciesCount, vacancies.ToList().Count);
+            Assert.Equal(vacanciesCount, vacancies.Count());
         }
     }
 }

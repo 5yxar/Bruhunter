@@ -3,9 +3,9 @@ using LightBDD.XUnit2;
 using System;
 using System.Threading.Tasks;
 
-namespace Bruhunter.Tests.IntegrationTests.Features.DomaineCandidate
+namespace Bruhunter.Tests.IntegrationTests.Features.Candidate
 {
-    public partial class AddVacancy_feature : FeatureFixtureBase
+    public partial class AddCandidate_feature : FeatureFixtureBase
     {
         [Scenario]
         public async Task Candidate_should_be_saved_in_database()

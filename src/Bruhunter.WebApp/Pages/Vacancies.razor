@@ -58,7 +58,6 @@ else
 
     async Task AddVacancyByModal()
     {
-        Console.WriteLine("start");
         var vacancyModal = Modal.Show<AddVacancyModal>("Добавление вакансии");
 
         var result = await vacancyModal.Result;

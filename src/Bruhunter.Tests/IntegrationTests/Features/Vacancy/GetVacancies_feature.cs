@@ -4,7 +4,7 @@ using LightBDD.XUnit2;
 using System;
 using System.Threading.Tasks;
 
-namespace Bruhunter.Tests.IntegrationTests.Features.DomaineVacancy
+namespace Bruhunter.Tests.IntegrationTests.Features.Vacancy
 {
     public partial class GetVacancies_feature : FeatureFixtureBase
     {
