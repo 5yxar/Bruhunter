@@ -3,7 +3,7 @@ using Bruhunter.Shared.Documents;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Bruhunter.Tests.IntegrationTests.Feautures
+namespace Bruhunter.Tests.IntegrationTests.Features.Candidate
 {
     public partial class AddCandidate_feature
     {

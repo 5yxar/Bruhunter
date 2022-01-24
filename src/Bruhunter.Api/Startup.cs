@@ -61,10 +61,12 @@ namespace Bruhunter.Api
 
         private void AddServiceDependencies(IServiceCollection services)
         {
-            services.AddScoped<CandidatesService>();
+            services.AddSingleton<CandidatesService>();
+            services.AddSingleton<VacanciesService>();
 
             var liteDb = new LiteDatabase(@$"Filename=MyData.db; Connection=Shared;");
-            services.AddScoped<ICandidatesRepository>(_ => new CandidatesRepository(liteDb));
+            services.AddSingleton<ICandidatesRepository>(new CandidatesRepository(liteDb));
+            services.AddSingleton<IVacanciesRepository>(new VacanciesRepository(liteDb));
         }
     }
 }

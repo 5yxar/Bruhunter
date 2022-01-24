@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Bruhunter.Tests.IntegrationTests.Features
+namespace Bruhunter.Tests.IntegrationTests.Features.Candidate
 {
     public partial class GetCandidate_feature
     {

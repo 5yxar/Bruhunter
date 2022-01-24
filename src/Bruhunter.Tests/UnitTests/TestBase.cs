@@ -1,7 +1,8 @@
 ﻿using Bruhunter.Application;
+using Bruhunter.Tests.UnitTests.Mocks;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Bruhunter.Tests.UnitTests.Mocks
+namespace Bruhunter.Tests.UnitTests
 {
     public class TestBase
     {

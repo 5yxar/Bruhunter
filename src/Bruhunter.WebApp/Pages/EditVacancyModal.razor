@@ -1,0 +1,58 @@
+﻿@using Bruhunter.Shared.Documents
+@using System.Net.Http.Headers
+
+@inject HttpClient Http
+
+<div class="simple-form">
+    @if (vacancyDocument == null)
+    {
+        <p><em>Нет данных</em></p>
+    }
+    else
+    {
+        <EditForm Model="@vacancyDocument">
+            <div class="form-group">
+                <label for="title">Наименование вакансии</label>
+                <input @bind="@vacancyDocument.Title" type="text" class="form-control" id="title" />
+            </div>
+
+            <div class="form-group">
+                <label for="second-name">Адрес</label>
+                <input @bind="@vacancyDocument.Address" type="text" class="form-control" id="address" />
+            </div>
+
+            <div class="form-group">
+                <label for="description">Описание</label>
+                <input @bind="@vacancyDocument.Description" type="text" class="form-control" id="description" />
+            </div>
+            <div class="form-group">
+                <label for="job-closing-date">Планируемая дата закрытия вакансии</label>
+                <InputDate @bind-Value="vacancyDocument.JobClosingDate" class="form-control" />
+            </div>
+        </EditForm>
+
+        <button @onclick="SaveChanges" class="btn btn-primary">Сохранить</button>
+        <button @onclick="VacancyModal.CancelAsync" class="btn btn-secondary">Отменить</button>
+    }
+</div>
+
+@code
+{
+    private VacancyDocument vacancyDocument;
+
+    protected override async Task OnInitializedAsync()
+    {
+        vacancyDocument = await Http.GetFromJsonAsync<VacancyDocument>("api/vacancies/" + Id);
+    }
+
+    [CascadingParameter] private BlazoredModalInstance VacancyModal { get; set; }
+    [Parameter] public Guid Id { get; set; }
+
+    async Task SaveChanges()
+    {
+        var jsonContent = JsonContent.Create(vacancyDocument, new MediaTypeHeaderValue("application/json"));
+
+        await Http.PutAsync("api/vacancies/" + vacancyDocument.Id, jsonContent);
+        await VacancyModal.CloseAsync(ModalResult.Ok<VacancyDocument>(vacancyDocument));
+    }
+}

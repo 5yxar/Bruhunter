@@ -17,9 +17,13 @@ namespace Bruhunter.Tests.IntegrationTests
             GiveMe = new DomainEntitiesBuilder();
             CandidatesRepository = new CandidatesRepository(new LiteDatabase(new MemoryStream()));
             CandidatesService = new CandidatesService(CandidatesRepository, NullLogger<CandidatesService>.Instance);
+            VacanciesRepository = new VacanciesRepository(new LiteDatabase(new MemoryStream()));
+            VacanciesService = new VacanciesService(VacanciesRepository);
         }
 
         protected ICandidatesRepository CandidatesRepository { get; private set; }
         protected CandidatesService CandidatesService { get; private set; }
+        protected IVacanciesRepository VacanciesRepository { get; private set; }
+        protected VacanciesService VacanciesService { get; private set; }
     }
 }

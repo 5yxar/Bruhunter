@@ -6,5 +6,10 @@
         {
             return new CandidateBuilder();
         }
+
+        public VacancyBuilder Vacancy()
+        {
+            return new VacancyBuilder();
+        }
     }
 }

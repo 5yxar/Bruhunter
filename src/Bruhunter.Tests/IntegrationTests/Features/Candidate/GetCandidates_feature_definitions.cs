@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Bruhunter.Tests.IntegrationTests.Feautures
+namespace Bruhunter.Tests.IntegrationTests.Features.Candidate
 {
     public partial class GetCandidates_feature
     {
@@ -23,7 +23,7 @@ namespace Bruhunter.Tests.IntegrationTests.Feautures
 
         public async Task Then_received_candidates_count_should_be(int candidatesCount)
         {
-            Assert.Equal(candidatesCount, candidates.ToList().Count);
+            Assert.Equal(candidatesCount, candidates.Count());
         }
     }
 }
