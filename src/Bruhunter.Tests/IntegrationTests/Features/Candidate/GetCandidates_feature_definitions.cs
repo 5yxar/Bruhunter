@@ -23,7 +23,7 @@ namespace Bruhunter.Tests.IntegrationTests.Features.Candidate
 
         public async Task Then_received_candidates_count_should_be(int candidatesCount)
         {
-            Assert.Equal(candidatesCount, candidates.ToList().Count);
+            Assert.Equal(candidatesCount, candidates.Count());
         }
     }
 }
