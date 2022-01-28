@@ -2,6 +2,7 @@
 using Bruhunter.Shared.Documents;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Bruhunter.Application
@@ -40,6 +41,12 @@ namespace Bruhunter.Application
         public async Task DeleteVacancy(Guid id)
         {
             await vacanciesRepository.DeleteVacancy(id);
+        }
+
+        public async Task<IEnumerable<CandidateVacancyDocumentProjection>> GetAllCandidateVacancies()
+        {
+            return (await vacanciesRepository.GetAllVacancies()).Select(x => new CandidateVacancyDocumentProjection
+                                                                                        { Id = x.Id, Title = x.Title });
         }
     }
 }

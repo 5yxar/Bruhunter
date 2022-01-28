@@ -7,5 +7,6 @@ namespace Bruhunter.Shared.Documents
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
+        public CandidateVacancyDocumentProjection Vacancy { get; set; }
     }
 }

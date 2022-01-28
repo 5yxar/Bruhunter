@@ -12,10 +12,12 @@ namespace Bruhunter.Api.Controllers
     public class VacanciesController : ControllerBase
     {
         private readonly VacanciesService vacanciesService;
+        private readonly CandidatesService candidatesService;
 
-        public VacanciesController(VacanciesService vacanciesService)
+        public VacanciesController(VacanciesService vacanciesService,CandidatesService candidatesService)
         {
             this.vacanciesService = vacanciesService;
+            this.candidatesService = candidatesService;
         }
 
         [HttpGet]
@@ -33,16 +35,16 @@ namespace Bruhunter.Api.Controllers
         }
 
         [HttpPost]
-        public async Task CreateVacancy(VacancyDocument candidateDocument)
+        public async Task CreateVacancy(VacancyDocument vacancyDocument)
         {
-            await vacanciesService.AddVacancy(candidateDocument);
+            await vacanciesService.AddVacancy(vacancyDocument);
         }
 
         [HttpPut]
         [Route("{id}")]
-        public async Task ChangeVacancy(VacancyDocument candidateDocument)
+        public async Task ChangeVacancy(VacancyDocument vacancyDocument)
         {
-            await vacanciesService.ChangeVacancy(candidateDocument);
+            await vacanciesService.ChangeVacancy(vacancyDocument);
         }
 
         [HttpDelete]

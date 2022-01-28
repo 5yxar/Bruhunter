@@ -20,6 +20,23 @@
             <input @bind="@candidateDocument.SecondName" type="text" class="form-control" id="second-name" />
         </div>
 
+        <div class="form-group">
+            <label for="second-name">Вакансия</label>
+            <select class="form-control" @onchange="SelectVacanciesComboBox_ChangeSelection">
+                @foreach (var vacancy in Vacancies)
+                {
+                    @if (candidateDocument.Vacancy.Id == vacancy.Id)
+                    {
+                        <option selected>@candidateDocument.Vacancy.Title</option>
+                    }
+                    else
+                    {
+                        <option value=@vacancy.Id>@vacancy.Title</option>
+                    }
+                }
+            </select>
+        </div>
+
         <button @onclick="SaveChanges" class="btn btn-primary">Сохранить</button>
         <button @onclick="CandidateModal.CancelAsync" class="btn btn-secondary">Отменить</button>
     }
@@ -32,10 +49,13 @@
     protected override async Task OnInitializedAsync()
     {
         candidateDocument = await Http.GetFromJsonAsync<CandidateDocument>("api/candidates/" + Id);
+        selectedVacancy = candidateDocument.Vacancy;
     }
 
     [CascadingParameter] private BlazoredModalInstance CandidateModal { get; set; }
     [Parameter] public Guid Id { get; set; }
+    [Parameter] public List<CandidateVacancyDocumentProjection> Vacancies { get; set; }
+    CandidateVacancyDocumentProjection selectedVacancy;
 
     async Task SaveChanges()
     {
@@ -43,5 +63,10 @@
 
         await Http.PutAsync("api/candidates/" + candidateDocument.Id, jsonContent);
         await CandidateModal.CloseAsync(ModalResult.Ok<CandidateDocument>(candidateDocument));
+    }
+
+    void SelectVacanciesComboBox_ChangeSelection(ChangeEventArgs e)
+    {
+        selectedVacancy = Vacancies.First(o => o.Id.ToString() == e.Value.ToString());
     }
 }
