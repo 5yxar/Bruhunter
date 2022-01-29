@@ -22,7 +22,7 @@ namespace Bruhunter.Tests.IntegrationTests.Features.Vacancy
 
         public async Task Then_database_should_contain_vacancy()
         {
-            var vacancies = await VacanciesRepository.QueryVacancies();
+            var vacancies = await VacanciesRepository.QueryVacancies(null);
 
             Assert.Single(vacancies);
         }

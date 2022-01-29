@@ -42,5 +42,10 @@ namespace Bruhunter.Tests.UnitTests.Mocks
         {
             throw new NotImplementedException();
         }
+
+        public Task UpdateCandidates(IEnumerable<CandidateDocument> tmp)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

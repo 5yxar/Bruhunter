@@ -18,7 +18,7 @@ namespace Bruhunter.Tests.IntegrationTests.Features.Vacancy
 
         public async Task When_receive_vacancies()
         {
-            vacancies = await VacanciesService.QueryVacancies();
+            vacancies = await VacanciesService.QueryVacancies(null);
         }
 
         public async Task Then_received_vacancies_count_should_be(int vacanciesCount)
