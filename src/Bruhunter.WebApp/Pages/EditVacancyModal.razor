@@ -13,7 +13,7 @@
         <EditForm Model="@vacancyDocument">
             <div class="form-group">
                 <label for="title">Наименование вакансии</label>
-                <input type="text" value="@vacancyDocument.Title" class="form-control" id="title" @onchange="InputChange" />
+                <input @bind="@vacancyDocument.Title" type="text" class="form-control" id="title"  />
             </div>
 
             <div class="form-group">
@@ -39,7 +39,6 @@
 @code
 {
     private VacancyDocument vacancyDocument;
-    private bool titleChanged;
 
     protected override async Task OnInitializedAsync()
     {
@@ -55,18 +54,6 @@
 
         await Http.PutAsync("api/vacancies/" + vacancyDocument.Id, jsonContent);
 
-        if (titleChanged)
-        {
-            //await Http.PutAsync("api/vacancies/" + vacancyDocument.Id, jsonContent);
-        }
-
         await VacancyModal.CloseAsync(ModalResult.Ok<VacancyDocument>(vacancyDocument));
-    }
-
-    async Task InputChange(ChangeEventArgs e)
-    {
-        vacancyDocument.Title = e.Value.ToString();
-
-        titleChanged = true;
     }
 }

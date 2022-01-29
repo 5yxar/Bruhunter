@@ -36,6 +36,11 @@ namespace Bruhunter.DataAccessLayer
             collection.Upsert(candidateDocument);
         }
 
+        public async Task UpdateCandidates(IEnumerable<CandidateDocument> candidatesCollection)
+        {
+            collection.Update(candidatesCollection);
+        }
+
         public async Task DeleteCandidate(Guid guid)
         {
             collection.Delete(guid);

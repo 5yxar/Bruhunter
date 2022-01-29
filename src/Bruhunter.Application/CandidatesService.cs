@@ -45,6 +45,18 @@ namespace Bruhunter.Application
             return receivedCandidate;
         }
 
+        public async Task UpdateCandidateVacancyTitles (CandidateVacancyDocumentProjection candidateVacancyDocumentProjection)
+        {
+            var candidatesCollection = (await GetAllCandidates()).Where(o => o.Vacancy != null && o.Vacancy.Id == candidateVacancyDocumentProjection.Id);
+            
+            foreach (var item in candidatesCollection)
+            {
+                item.Vacancy.Title = candidateVacancyDocumentProjection.Title;
+            }
+
+            await candidatesRepository.UpdateCandidates(candidatesCollection);
+        }
+
         public async Task<IEnumerable<CandidateDocument>> GetAllCandidates()
         {
             logger.LogInformation("Getting all candidates from database ...");
