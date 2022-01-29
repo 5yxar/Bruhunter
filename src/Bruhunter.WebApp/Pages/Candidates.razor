@@ -147,7 +147,7 @@ else
         }
     }
 
-    void SelectVacanciesComboBox_ChangeSelection(ChangeEventArgs e)
+    async Task SelectVacanciesComboBox_ChangeSelection(ChangeEventArgs e)
     {
         selectedVacancy = vacancies.First(o => o.Id.ToString() == e.Value.ToString());
     }
