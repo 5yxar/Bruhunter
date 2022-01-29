@@ -22,9 +22,9 @@ namespace Bruhunter.Api.Controllers
 
         [HttpGet]
         [Route("query")]
-        public async Task<IEnumerable<VacancyDocument>> GetAllVacancies()
+        public async Task<IEnumerable<VacancyDocument>> QueryVacancies([FromQuery]string? minCloseDateTime)
         {
-            return await vacanciesService.GetAllVacancies();
+            return await vacanciesService.QueryVacancies(minCloseDateTime != null ? Convert.ToDateTime(minCloseDateTime) : null) ;
         }
 
         [HttpGet]

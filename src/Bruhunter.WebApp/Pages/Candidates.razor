@@ -29,7 +29,7 @@ else
             <div class="col-md-2">
                 <label>Выберите вакансию:</label>
                 <select class="form-control" @onchange="SelectVacanciesComboBox_ChangeSelection">
-                    @foreach (var vacancy in vacancies)
+                    @foreach (var vacancy in candidateVacancies)
                     {
                         <option value=@vacancy.Id>@vacancy.Title</option>
                     }
@@ -78,8 +78,8 @@ else
 
 @code
 {
-    private List<CandidateDocument> candidates;
-    private List<CandidateVacancyDocumentProjection> vacancies;
+    private IEnumerable<CandidateDocument> candidates;
+    private IEnumerable<CandidateVacancyDocumentProjection> candidateVacancies;
     private string name;
     private string lastName;
     CandidateVacancyDocumentProjection selectedVacancy;
@@ -87,6 +87,13 @@ else
     protected override async Task OnInitializedAsync()
     {
         await LoadCandidates();
+        var a = $"api/vacancies/query?minCloseDateTime={DateTime.Now}";
+        Console.WriteLine(a);
+        var vacancies = await Http.GetFromJsonAsync<List<VacancyDocument>>(a);
+
+        candidateVacancies = vacancies.Select(x => new CandidateVacancyDocumentProjection { Id = x.Id, Title = x.Title });
+
+        selectedVacancy = candidateVacancies.First();
     }
 
     [CascadingParameter] public IModalService Modal { get; set; }
@@ -94,9 +101,6 @@ else
     private async Task LoadCandidates()
     {
         candidates = await Http.GetFromJsonAsync<List<CandidateDocument>>("api/candidates/query");
-
-        vacancies = await Http.GetFromJsonAsync<List<CandidateVacancyDocumentProjection>>("api/candidates/vacancies");
-        selectedVacancy = vacancies.First();
     }
 
     private async Task AddCandidate()
@@ -115,7 +119,7 @@ else
                 };
             name = null;
             lastName = null;
-            selectedVacancy = vacancies.First();
+            selectedVacancy = candidateVacancies.First();
 
             var jsonContent = JsonContent.Create(candidateDocument, new MediaTypeHeaderValue("application/json"));
             await Http.PostAsync("api/candidates", jsonContent);
@@ -135,7 +139,7 @@ else
         var parameters = new ModalParameters();
 
         parameters.Add(nameof(EditCandidateModal.Id), id);
-        parameters.Add(nameof(EditCandidateModal.Vacancies), vacancies);
+        parameters.Add(nameof(EditCandidateModal.Vacancies), candidateVacancies);
 
         var candidateModal = Modal.Show<EditCandidateModal>("Изменение кандидата", parameters);
 
@@ -149,6 +153,6 @@ else
 
     async Task SelectVacanciesComboBox_ChangeSelection(ChangeEventArgs e)
     {
-        selectedVacancy = vacancies.First(o => o.Id.ToString() == e.Value.ToString());
+        selectedVacancy = candidateVacancies.First(o => o.Id.ToString() == e.Value.ToString());
     }
 }

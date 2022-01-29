@@ -28,9 +28,9 @@ namespace Bruhunter.Application
             return await vacanciesRepository.GetVacancy(candidateId);
         }
 
-        public async Task<IEnumerable<VacancyDocument>> GetAllVacancies()
+        public async Task<IEnumerable<VacancyDocument>> QueryVacancies(DateTime? minCloseDateTime)
         {
-            return await vacanciesRepository.GetAllVacancies();
+            return await vacanciesRepository.QueryVacancies(minCloseDateTime);
         }
 
         public async Task ChangeVacancy(VacancyDocument vacancyDocument)
@@ -41,12 +41,6 @@ namespace Bruhunter.Application
         public async Task DeleteVacancy(Guid id)
         {
             await vacanciesRepository.DeleteVacancy(id);
-        }
-
-        public async Task<IEnumerable<CandidateVacancyDocumentProjection>> GetAllCandidateVacancies()
-        {
-            return (await vacanciesRepository.GetAllVacancies()).Select(x => new CandidateVacancyDocumentProjection
-                                                                                        { Id = x.Id, Title = x.Title });
         }
     }
 }

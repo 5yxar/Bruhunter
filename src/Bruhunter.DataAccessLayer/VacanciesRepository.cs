@@ -25,9 +25,9 @@ namespace Bruhunter.DataAccessLayer
             return collection.FindById(id);
         }
 
-        public async Task<IEnumerable<VacancyDocument>> GetAllVacancies()
+        public async Task<IEnumerable<VacancyDocument>> QueryVacancies(DateTime? minCloseDateTime)
         {
-            return collection.FindAll();
+            return collection.Find(o => minCloseDateTime == null || (minCloseDateTime != null && o.JobClosingDate > minCloseDateTime));
         }
 
         public async Task ChangeVacancy(VacancyDocument vacancyDocument)

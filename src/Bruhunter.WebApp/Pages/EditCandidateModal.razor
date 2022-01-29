@@ -54,7 +54,7 @@
 
     [CascadingParameter] private BlazoredModalInstance CandidateModal { get; set; }
     [Parameter] public Guid Id { get; set; }
-    [Parameter] public List<CandidateVacancyDocumentProjection> Vacancies { get; set; }
+    [Parameter] public IEnumerable<CandidateVacancyDocumentProjection> Vacancies { get; set; }
     CandidateVacancyDocumentProjection selectedVacancy;
 
     async Task SaveChanges()

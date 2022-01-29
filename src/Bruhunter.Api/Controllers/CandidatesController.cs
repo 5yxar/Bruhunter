@@ -31,17 +31,8 @@ namespace Bruhunter.Api.Controllers
         [Route("query")]
         public async Task<IEnumerable<CandidateDocument>> GetAllCandidates()
         {
-           var a = await candidatesService.GetAllCandidates();
-            return a;
+           return await candidatesService.GetAllCandidates();
         }
-
-        [HttpGet]
-        [Route("vacancies")]
-        public async Task<IEnumerable<CandidateVacancyDocumentProjection>> GetAllCandidateVacancies()
-        {
-            return await vacanciesService.GetAllCandidateVacancies();
-        }
-
 
         [HttpPost]
         public async Task CreateCandidate(CandidateDocument candidateDocument)
