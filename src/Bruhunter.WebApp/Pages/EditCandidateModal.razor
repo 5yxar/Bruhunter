@@ -4,7 +4,7 @@
 @inject HttpClient Http
 
 <div class="simple-form">
-    @if (candidateDocument == null)
+    @if (candidateDocument == null || candidateVacanciesProjection == null)
     {
         <p><em>Нет данных</em></p>
     }
@@ -23,7 +23,7 @@
         <div class="form-group">
             <label for="second-name">Вакансия</label>
             <select class="form-control" @onchange="SelectVacanciesComboBox_ChangeSelection">
-                @foreach (var vacancy in Vacancies)
+                @foreach (var vacancy in candidateVacanciesProjection)
                 {
                     @if (candidateDocument.Vacancy.Id == vacancy.Id)
                     {
@@ -45,17 +45,21 @@
 @code
 {
     private CandidateDocument candidateDocument;
+    private IEnumerable<CandidateVacancyDocumentProjection> candidateVacanciesProjection;
+    CandidateVacancyDocumentProjection selectedVacancy;
 
     protected override async Task OnInitializedAsync()
     {
         candidateDocument = await Http.GetFromJsonAsync<CandidateDocument>("api/candidates/" + Id);
         selectedVacancy = candidateDocument.Vacancy;
+
+        var vacancies = await Http.GetFromJsonAsync<List<VacancyDocument>>($"api/vacancies/query?minCloseDateTime={DateTime.Now}");
+
+        candidateVacanciesProjection = vacancies.Select(x => x.ToCandidateVacancyDocumentProjection());
     }
 
     [CascadingParameter] private BlazoredModalInstance CandidateModal { get; set; }
     [Parameter] public Guid Id { get; set; }
-    [Parameter] public IEnumerable<CandidateVacancyDocumentProjection> Vacancies { get; set; }
-    CandidateVacancyDocumentProjection selectedVacancy;
 
     async Task SaveChanges()
     {
@@ -69,6 +73,6 @@
 
     void SelectVacanciesComboBox_ChangeSelection(ChangeEventArgs e)
     {
-        selectedVacancy = Vacancies.First(o => o.Id.ToString() == e.Value.ToString());
+        selectedVacancy = candidateVacanciesProjection.First(o => o.Id.ToString() == e.Value.ToString());
     }
 }

@@ -1,7 +1,6 @@
 ﻿@page "/candidates"
 @using System.Net.Http.Headers
 @using Bruhunter.WebApp.Pages
-@using System.Diagnostics
 @namespace Bruhunter.Shared.Documents
 
 @inject HttpClient Http
@@ -29,7 +28,7 @@ else
             <div class="col-md-2">
                 <label>Выберите вакансию:</label>
                 <select class="form-control" @onchange="SelectVacanciesComboBox_ChangeSelection">
-                    @foreach (var vacancy in candidateVacancies)
+                    @foreach (var vacancy in candidateVacanciesProjection)
                     {
                         <option value=@vacancy.Id>@vacancy.Title</option>
                     }
@@ -79,7 +78,7 @@ else
 @code
 {
     private IEnumerable<CandidateDocument> candidates;
-    private IEnumerable<CandidateVacancyDocumentProjection> candidateVacancies;
+    private IEnumerable<CandidateVacancyDocumentProjection> candidateVacanciesProjection;
     private string name;
     private string lastName;
     CandidateVacancyDocumentProjection selectedVacancy;
@@ -87,13 +86,12 @@ else
     protected override async Task OnInitializedAsync()
     {
         await LoadCandidates();
-        var a = $"api/vacancies/query?minCloseDateTime={DateTime.Now}";
-        Console.WriteLine(a);
-        var vacancies = await Http.GetFromJsonAsync<List<VacancyDocument>>(a);
 
-        candidateVacancies = vacancies.Select(x => new CandidateVacancyDocumentProjection { Id = x.Id, Title = x.Title });
+        var vacancies = await Http.GetFromJsonAsync<List<VacancyDocument>>($"api/vacancies/query?minCloseDateTime={DateTime.Now}");
 
-        selectedVacancy = candidateVacancies.First();
+        candidateVacanciesProjection = vacancies.Select(x => x.ToCandidateVacancyDocumentProjection());
+
+        selectedVacancy = candidateVacanciesProjection.First();
     }
 
     [CascadingParameter] public IModalService Modal { get; set; }
@@ -119,7 +117,7 @@ else
                 };
             name = null;
             lastName = null;
-            selectedVacancy = candidateVacancies.First();
+            selectedVacancy = candidateVacanciesProjection.First();
 
             var jsonContent = JsonContent.Create(candidateDocument, new MediaTypeHeaderValue("application/json"));
             await Http.PostAsync("api/candidates", jsonContent);
@@ -139,7 +137,6 @@ else
         var parameters = new ModalParameters();
 
         parameters.Add(nameof(EditCandidateModal.Id), id);
-        parameters.Add(nameof(EditCandidateModal.Vacancies), candidateVacancies);
 
         var candidateModal = Modal.Show<EditCandidateModal>("Изменение кандидата", parameters);
 
@@ -153,6 +150,6 @@ else
 
     async Task SelectVacanciesComboBox_ChangeSelection(ChangeEventArgs e)
     {
-        selectedVacancy = candidateVacancies.First(o => o.Id.ToString() == e.Value.ToString());
+        selectedVacancy = candidateVacanciesProjection.First(o => o.Id.ToString() == e.Value.ToString());
     }
 }
