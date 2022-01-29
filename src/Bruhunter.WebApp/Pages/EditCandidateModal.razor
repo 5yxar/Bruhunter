@@ -59,6 +59,8 @@
 
     async Task SaveChanges()
     {
+        candidateDocument.Vacancy = selectedVacancy;
+
         var jsonContent = JsonContent.Create(candidateDocument, new MediaTypeHeaderValue("application/json"));
 
         await Http.PutAsync("api/candidates/" + candidateDocument.Id, jsonContent);
