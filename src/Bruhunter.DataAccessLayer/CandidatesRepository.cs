@@ -31,6 +31,11 @@ namespace Bruhunter.DataAccessLayer
             return collection.FindAll().ToList();
         }
 
+        public async Task<IEnumerable<CandidateDocument>> GetAllCandidatesByVacancyId(Guid id)
+        {
+            return collection.FindAll().Where(o => o.Vacancy != null && o.Vacancy.Id == id);
+        }
+
         public async Task ChangeCandidate(CandidateDocument candidateDocument)
         {
             collection.Upsert(candidateDocument);
