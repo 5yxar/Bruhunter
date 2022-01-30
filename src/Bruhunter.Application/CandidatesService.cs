@@ -5,6 +5,7 @@ using Bruhunter.Shared.Documents;
 using Bruhunter.DataAccessLayer;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using Bruhunter.Shared.Projections;
 
 namespace Bruhunter.Application
 {

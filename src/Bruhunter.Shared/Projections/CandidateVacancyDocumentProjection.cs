@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bruhunter.Shared.Documents
+namespace Bruhunter.Shared.Projections
 {
     public class CandidateVacancyDocumentProjection
     {

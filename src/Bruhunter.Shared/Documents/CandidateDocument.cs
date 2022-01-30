@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bruhunter.Shared.Projections;
+using System;
 
 namespace Bruhunter.Shared.Documents
 {
