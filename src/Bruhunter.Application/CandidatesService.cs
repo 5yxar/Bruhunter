@@ -45,13 +45,13 @@ namespace Bruhunter.Application
             return receivedCandidate;
         }
 
-        public async Task UpdateCandidateVacancyTitles (CandidateVacancyDocumentProjection candidateVacancyDocumentProjection)
+        public async Task UpdateCandidateVacancyTitles(CandidateVacancyDocumentProjection candidateVacancyDocumentProjection)
         {
             var candidatesCollection = (await GetAllCandidates()).Where(o => o.Vacancy != null && o.Vacancy.Id == candidateVacancyDocumentProjection.Id);
             
-            foreach (var item in candidatesCollection)
+            foreach (var candidate in candidatesCollection)
             {
-                item.Vacancy.Title = candidateVacancyDocumentProjection.Title;
+                candidate.Vacancy.Title = candidateVacancyDocumentProjection.Title;
             }
 
             await candidatesRepository.UpdateCandidates(candidatesCollection);

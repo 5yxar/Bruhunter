@@ -14,7 +14,7 @@ namespace Bruhunter.Api.Controllers
         private readonly VacanciesService vacanciesService;
         private readonly CandidatesService candidatesService;
 
-        public VacanciesController(VacanciesService vacanciesService,CandidatesService candidatesService)
+        public VacanciesController(VacanciesService vacanciesService, CandidatesService candidatesService)
         {
             this.vacanciesService = vacanciesService;
             this.candidatesService = candidatesService;

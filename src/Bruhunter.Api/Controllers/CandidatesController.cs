@@ -12,12 +12,10 @@ namespace Bruhunter.Api.Controllers
     public class CandidatesController : ControllerBase
     {
         private readonly CandidatesService candidatesService;
-        private readonly VacanciesService vacanciesService;
 
-        public CandidatesController(CandidatesService candidatesService, VacanciesService vacanciesService)
+        public CandidatesController(CandidatesService candidatesService)
         {
             this.candidatesService = candidatesService;
-            this.vacanciesService = vacanciesService;
         }
 
         [HttpGet]
@@ -31,7 +29,7 @@ namespace Bruhunter.Api.Controllers
         [Route("query")]
         public async Task<IEnumerable<CandidateDocument>> GetAllCandidates()
         {
-           return await candidatesService.GetAllCandidates();
+            return await candidatesService.GetAllCandidates();
         }
 
         [HttpPost]
