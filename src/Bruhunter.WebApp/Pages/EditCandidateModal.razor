@@ -28,7 +28,7 @@
                 {
                     @if (candidateDocument.Vacancy.Id == vacancy.Id)
                     {
-                        <option selected>@candidateDocument.Vacancy.Title</option>
+                        <option selected value=@candidateDocument.Vacancy.Id>@candidateDocument.Vacancy.Title</option>
                     }
                     else
                     {
