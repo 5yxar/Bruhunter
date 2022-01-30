@@ -29,7 +29,7 @@ namespace Bruhunter.Application
             return await vacanciesRepository.GetVacancy(candidateId);
         }
 
-        public async Task<IEnumerable<VacancyDocument>> QueryVacancies(DateTime? minCloseDateTime)
+        public async Task<IEnumerable<VacancyDocument>> QueryVacancies(DateTime? minCloseDateTime = null)
         {
             return await vacanciesRepository.QueryVacancies(minCloseDateTime);
         }
