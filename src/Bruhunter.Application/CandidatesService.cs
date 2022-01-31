@@ -48,6 +48,9 @@ namespace Bruhunter.Application
 
         public async Task UpdateCandidateVacancyTitles(CandidateVacancyDocumentProjection candidateVacancyDocumentProjection)
         {
+            logger.LogInformation("Changing candidates vacancy titles with vacancy id = {VacancyId} in the database ...",
+                                    candidateVacancyDocumentProjection.Id);
+
             var candidatesCollection = await candidatesRepository.GetAllCandidatesByVacancyId(candidateVacancyDocumentProjection.Id);
             
             foreach (var candidate in candidatesCollection)
@@ -56,6 +59,9 @@ namespace Bruhunter.Application
             }
 
             await candidatesRepository.UpdateCandidates(candidatesCollection);
+
+            logger.LogDebug("Candidates vacancy titles was changed to {candidateVacancyDocumentProjection}.", 
+                              candidateVacancyDocumentProjection);
         }
 
         public async Task<IEnumerable<CandidateDocument>> GetAllCandidates()
