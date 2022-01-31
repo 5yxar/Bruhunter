@@ -23,14 +23,11 @@
 
         <div class="form-group">
             <label for="second-name">Вакансия</label>
-            <select class="form-control" @onchange="SelectVacanciesComboBox_ChangeSelection">
+            <select @bind="selectedActualVacancyId" class="form-control">
+                <option selected value=@candidateDocument.Vacancy.Id>@candidateDocument.Vacancy.Title</option>
                 @foreach (var vacancy in candidateVacanciesProjection)
                 {
-                    @if (candidateDocument.Vacancy.Id == vacancy.Id)
-                    {
-                        <option selected value=@candidateDocument.Vacancy.Id>@candidateDocument.Vacancy.Title</option>
-                    }
-                    else
+                    @if (candidateDocument.Vacancy.Id != vacancy.Id)
                     {
                         <option value=@vacancy.Id>@vacancy.Title</option>
                     }
@@ -47,33 +44,29 @@
 {
     private CandidateDocument candidateDocument;
     private IEnumerable<CandidateVacancyDocumentProjection> candidateVacanciesProjection;
-    CandidateVacancyDocumentProjection selectedVacancy;
+    private Guid selectedActualVacancyId;
 
     protected override async Task OnInitializedAsync()
     {
-        candidateDocument = await Http.GetFromJsonAsync<CandidateDocument>("api/candidates/" + Id);
-        selectedVacancy = candidateDocument.Vacancy;
-
         var vacancies = await Http.GetFromJsonAsync<List<VacancyDocument>>($"api/vacancies/query?minCloseDateTime={DateTime.Now}");
 
         candidateVacanciesProjection = vacancies.Select(x => x.ToCandidateVacancyDocumentProjection());
+        candidateDocument = await Http.GetFromJsonAsync<CandidateDocument>("api/candidates/" + Id);
+        selectedActualVacancyId = candidateDocument.Vacancy.Id;
     }
 
     [CascadingParameter] private BlazoredModalInstance CandidateModal { get; set; }
     [Parameter] public Guid Id { get; set; }
 
-    async Task SaveChanges()
+    private async Task SaveChanges()
     {
-        candidateDocument.Vacancy = selectedVacancy;
+        candidateDocument.Vacancy = candidateVacanciesProjection.Where(o => o.Id == selectedActualVacancyId)
+                                                                .DefaultIfEmpty(candidateDocument.Vacancy)
+                                                                .Single();
 
         var jsonContent = JsonContent.Create(candidateDocument, new MediaTypeHeaderValue("application/json"));
 
         await Http.PutAsync("api/candidates/" + candidateDocument.Id, jsonContent);
         await CandidateModal.CloseAsync(ModalResult.Ok<CandidateDocument>(candidateDocument));
-    }
-
-    void SelectVacanciesComboBox_ChangeSelection(ChangeEventArgs e)
-    {
-        selectedVacancy = candidateVacanciesProjection.First(o => o.Id.ToString() == e.Value.ToString());
     }
 }
