@@ -1,4 +1,5 @@
 ﻿using Bruhunter.Shared.Documents;
+using Bruhunter.Shared.Projections;
 using System;
 
 namespace Bruhunter.Tests.Common
@@ -50,6 +51,15 @@ namespace Bruhunter.Tests.Common
                 Address = address,
                 Description = description,
                 JobClosingDate = jobClosingDate
+            };
+        }
+
+        public CandidateVacancyDocumentProjection CandidateProjectionPlease()
+        {
+            return new CandidateVacancyDocumentProjection()
+            {
+                Id = id,
+                Title = title
             };
         }
     }

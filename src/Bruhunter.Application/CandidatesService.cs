@@ -40,7 +40,7 @@ namespace Bruhunter.Application
 
             var receivedCandidate = await candidatesRepository.GetCandidate(id);
 
-            logger.LogDebug("Candidate {receivedCandidate} with id = {id} was received from database.", 
+            logger.LogDebug("Candidate {receivedCandidate} with id = {id} was received from database.",
                             receivedCandidate, id);
 
             return receivedCandidate;
@@ -52,15 +52,13 @@ namespace Bruhunter.Application
                                     candidateVacancyDocumentProjection.Id);
 
             var candidatesCollection = await candidatesRepository.GetAllCandidatesByVacancyId(candidateVacancyDocumentProjection.Id);
-            
-            foreach (var candidate in candidatesCollection)
-            {
-                candidate.Vacancy.Title = candidateVacancyDocumentProjection.Title;
-            }
 
-            await candidatesRepository.UpdateCandidates(candidatesCollection);
+            var changedCandidatesCollection = candidatesCollection.ToList();
+            changedCandidatesCollection.ForEach(o => o.Vacancy.Title = candidateVacancyDocumentProjection.Title);
 
-            logger.LogDebug("Candidates vacancy titles was changed to {candidateVacancyDocumentProjection}.", 
+            await candidatesRepository.UpdateCandidates(changedCandidatesCollection);
+
+            logger.LogDebug("Candidates vacancy titles was changed to {candidateVacancyDocumentProjection}.",
                               candidateVacancyDocumentProjection);
         }
 
@@ -70,7 +68,7 @@ namespace Bruhunter.Application
 
             var receivedCandidates = await candidatesRepository.GetAllCandidates();
 
-            logger.LogDebug("{candidatesCount} candidates was received from database.", 
+            logger.LogDebug("{candidatesCount} candidates was received from database.",
                             receivedCandidates.Count());
 
             return receivedCandidates;
@@ -78,7 +76,7 @@ namespace Bruhunter.Application
 
         public async Task ChangeCandidate(CandidateDocument candidateDocument)
         {
-            logger.LogInformation("Changing candidate {candidateDocument} in the database ...", 
+            logger.LogInformation("Changing candidate {candidateDocument} in the database ...",
                                     candidateDocument);
 
             await candidatesRepository.ChangeCandidate(candidateDocument);
