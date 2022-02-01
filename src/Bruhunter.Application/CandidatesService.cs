@@ -46,19 +46,24 @@ namespace Bruhunter.Application
             return receivedCandidate;
         }
 
-        public async Task UpdateCandidateVacancyTitles(CandidateVacancyDocumentProjection candidateVacancyDocumentProjection)
+        public async Task UpdateCandidateVacancyProjection(CandidateVacancyDocumentProjection candidateVacancyDocumentProjection)
         {
-            logger.LogInformation("Changing candidates vacancy titles with vacancy id = {VacancyId} in the database ...",
+            logger.LogInformation("Changing candidates vacancy with vacancy id = {VacancyId} in the database ...",
                                     candidateVacancyDocumentProjection.Id);
 
             var candidatesCollection = await candidatesRepository.GetAllCandidatesByVacancyId(candidateVacancyDocumentProjection.Id);
 
-            var changedCandidatesCollection = candidatesCollection.ToList();
-            changedCandidatesCollection.ForEach(o => o.Vacancy.Title = candidateVacancyDocumentProjection.Title);
+            var newCadndidatesCollection = candidatesCollection.Select(candidate => candidate with
+                {
+                    Vacancy = candidate.Vacancy with
+                    {
+                        Title = candidateVacancyDocumentProjection.Title
+                    }
+                });
 
-            await candidatesRepository.UpdateCandidates(changedCandidatesCollection);
+            await candidatesRepository.UpdateCandidates(newCadndidatesCollection);
 
-            logger.LogDebug("Candidates vacancy titles was changed to {candidateVacancyDocumentProjection}.",
+            logger.LogDebug("Candidates vacancy was changed to {candidateVacancyDocumentProjection}.",
                               candidateVacancyDocumentProjection);
         }
 

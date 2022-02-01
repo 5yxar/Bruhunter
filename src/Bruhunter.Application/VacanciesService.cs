@@ -38,7 +38,7 @@ namespace Bruhunter.Application
         {
             await vacanciesRepository.ChangeVacancy(vacancyDocument);
 
-            await candidatesService.UpdateCandidateVacancyTitles(vacancyDocument.ToCandidateVacancyDocumentProjection());
+            await candidatesService.UpdateCandidateVacancyProjection(vacancyDocument.ToCandidateVacancyDocumentProjection());
         }
 
         public async Task DeleteVacancy(Guid id)

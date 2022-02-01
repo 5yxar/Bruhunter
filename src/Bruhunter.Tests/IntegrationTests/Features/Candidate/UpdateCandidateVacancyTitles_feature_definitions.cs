@@ -22,7 +22,7 @@ namespace Bruhunter.Tests.IntegrationTests.Features.Candidate
 
         public async Task When_changed_candidates_vacancy_titles(CandidateVacancyDocumentProjection сandidateVacancyDocumentProjection)
         {
-            await CandidatesService.UpdateCandidateVacancyTitles(сandidateVacancyDocumentProjection);
+            await CandidatesService.UpdateCandidateVacancyProjection(сandidateVacancyDocumentProjection);
         }
 
         public async Task Then_candidates_vacancy_title_in_database_should_be(string candidatesVacancyTitle)
