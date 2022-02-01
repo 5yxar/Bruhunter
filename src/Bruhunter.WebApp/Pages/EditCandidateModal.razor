@@ -48,7 +48,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var vacancies = await Http.GetFromJsonAsync<List<VacancyDocument>>($"api/vacancies/query?minCloseDateTime={DateTime.Now}");
+        var dateTime = DateTime.Now.ToString("s");
+        var vacancies = await Http.GetFromJsonAsync<List<VacancyDocument>>($"api/vacancies/query?minCloseDateTime={dateTime}");
 
         candidateVacanciesProjection = vacancies.Select(x => x.ToCandidateVacancyDocumentProjection());
         candidateDocument = await Http.GetFromJsonAsync<CandidateDocument>("api/candidates/" + Id);

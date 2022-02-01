@@ -89,7 +89,7 @@ else
     {
         await LoadCandidates();
 
-        var dateTime = DateTime.Now.ToString("d");
+        var dateTime = DateTime.Now.ToString("s");
         var vacancies = await Http.GetFromJsonAsync<List<VacancyDocument>>($"api/vacancies/query?minCloseDateTime={dateTime}");
 
         candidateVacanciesProjection = vacancies.Select(x => x.ToCandidateVacancyDocumentProjection());
