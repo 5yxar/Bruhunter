@@ -19,23 +19,23 @@ namespace Bruhunter.Api.Controllers
         }
 
         [HttpGet]
-        [Route("query")]
-        public async Task<IEnumerable<CandidateDocument>> GetAllCandidates()
-        {
-            return await candidatesService.GetAllCandidates();
-        }
-
-        [HttpGet]
         [Route("{id}")]
         public async Task<CandidateDocument> GetCandidate(Guid id)
         {
             return await candidatesService.GetCandidate(id);
         }
 
+        [HttpGet]
+        [Route("query")]
+        public async Task<IEnumerable<CandidateDocument>> GetAllCandidates()
+        {
+            return await candidatesService.GetAllCandidates();
+        }
+
         [HttpPost]
         public async Task CreateCandidate(CandidateDocument candidateDocument)
         {
-           await candidatesService.AddCandidate(candidateDocument);
+            await candidatesService.AddCandidate(candidateDocument);
         }
 
         [HttpPut]

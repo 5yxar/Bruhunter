@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bruhunter.Shared.Projections;
+using System;
 
 namespace Bruhunter.Shared.Documents
 {
@@ -7,5 +8,6 @@ namespace Bruhunter.Shared.Documents
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
+        public CandidateVacancyDocumentProjection Vacancy { get; set; }
     }
 }

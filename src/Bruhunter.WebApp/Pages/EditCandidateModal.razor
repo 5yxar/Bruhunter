@@ -1,10 +1,11 @@
 ﻿@using Bruhunter.Shared.Documents
 @using System.Net.Http.Headers
+@using Bruhunter.Shared.Projections
 
 @inject HttpClient Http
 
 <div class="simple-form">
-    @if (candidateDocument == null)
+    @if (candidateDocument == null || candidateVacanciesProjection == null)
     {
         <p><em>Нет данных</em></p>
     }
@@ -20,6 +21,20 @@
             <input @bind="@candidateDocument.SecondName" type="text" class="form-control" id="second-name" />
         </div>
 
+        <div class="form-group">
+            <label for="second-name">Вакансия</label>
+            <select @bind="selectedActualVacancyId" class="form-control">
+                <option selected value=@candidateDocument.Vacancy.Id>@candidateDocument.Vacancy.Title</option>
+                @foreach (var vacancy in candidateVacanciesProjection)
+                {
+                    @if (candidateDocument.Vacancy.Id != vacancy.Id)
+                    {
+                        <option value=@vacancy.Id>@vacancy.Title</option>
+                    }
+                }
+            </select>
+        </div>
+
         <button @onclick="SaveChanges" class="btn btn-primary">Сохранить</button>
         <button @onclick="CandidateModal.CancelAsync" class="btn btn-secondary">Отменить</button>
     }
@@ -28,17 +43,28 @@
 @code
 {
     private CandidateDocument candidateDocument;
+    private IEnumerable<CandidateVacancyDocumentProjection> candidateVacanciesProjection;
+    private Guid selectedActualVacancyId;
 
     protected override async Task OnInitializedAsync()
     {
+        var dateTime = DateTime.Now.ToString("s");
+        var vacancies = await Http.GetFromJsonAsync<List<VacancyDocument>>($"api/vacancies/query?minCloseDateTime={dateTime}");
+
+        candidateVacanciesProjection = vacancies.Select(x => x.ToCandidateVacancyDocumentProjection());
         candidateDocument = await Http.GetFromJsonAsync<CandidateDocument>("api/candidates/" + Id);
+        selectedActualVacancyId = candidateDocument.Vacancy.Id;
     }
 
     [CascadingParameter] private BlazoredModalInstance CandidateModal { get; set; }
     [Parameter] public Guid Id { get; set; }
 
-    async Task SaveChanges()
+    private async Task SaveChanges()
     {
+        candidateDocument.Vacancy = candidateVacanciesProjection.Where(o => o.Id == selectedActualVacancyId)
+                                                                .DefaultIfEmpty(candidateDocument.Vacancy)
+                                                                .Single();
+
         var jsonContent = JsonContent.Create(candidateDocument, new MediaTypeHeaderValue("application/json"));
 
         await Http.PutAsync("api/candidates/" + candidateDocument.Id, jsonContent);

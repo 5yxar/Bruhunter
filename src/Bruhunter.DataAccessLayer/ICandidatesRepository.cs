@@ -10,7 +10,10 @@ namespace Bruhunter.DataAccessLayer
         Task AddCandidate(CandidateDocument candidateDocument);
         Task<CandidateDocument> GetCandidate(Guid id);
         Task<IEnumerable<CandidateDocument>> GetAllCandidates();
+        Task<IEnumerable<CandidateDocument>> GetAllCandidatesByVacancyId(Guid id);
         Task ChangeCandidate(CandidateDocument candidateDocument);
+        Task UpdateCandidates(IEnumerable<CandidateDocument> candidatesCollection);
         Task DeleteCandidate(Guid guid);
+        
     }
 }

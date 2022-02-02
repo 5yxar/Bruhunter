@@ -5,6 +5,7 @@ using Bruhunter.Shared.Documents;
 using Bruhunter.DataAccessLayer;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using Bruhunter.Shared.Projections;
 
 namespace Bruhunter.Application
 {
@@ -39,10 +40,31 @@ namespace Bruhunter.Application
 
             var receivedCandidate = await candidatesRepository.GetCandidate(id);
 
-            logger.LogDebug("Candidate {receivedCandidate} with id = {id} was received from database.", 
+            logger.LogDebug("Candidate {receivedCandidate} with id = {id} was received from database.",
                             receivedCandidate, id);
 
             return receivedCandidate;
+        }
+
+        public async Task UpdateCandidateVacancyProjection(CandidateVacancyDocumentProjection candidateVacancyDocumentProjection)
+        {
+            logger.LogInformation("Changing candidates vacancy with vacancy id = {VacancyId} in the database ...",
+                                    candidateVacancyDocumentProjection.Id);
+
+            var candidatesCollection = await candidatesRepository.GetAllCandidatesByVacancyId(candidateVacancyDocumentProjection.Id);
+
+            var newCadndidatesCollection = candidatesCollection.Select(candidate => candidate with
+                {
+                    Vacancy = candidate.Vacancy with
+                    {
+                        Title = candidateVacancyDocumentProjection.Title
+                    }
+                });
+
+            await candidatesRepository.UpdateCandidates(newCadndidatesCollection);
+
+            logger.LogDebug("Candidates vacancy was changed to {candidateVacancyDocumentProjection}.",
+                              candidateVacancyDocumentProjection);
         }
 
         public async Task<IEnumerable<CandidateDocument>> GetAllCandidates()
@@ -51,7 +73,7 @@ namespace Bruhunter.Application
 
             var receivedCandidates = await candidatesRepository.GetAllCandidates();
 
-            logger.LogDebug("{candidatesCount} candidates was received from database.", 
+            logger.LogDebug("{candidatesCount} candidates was received from database.",
                             receivedCandidates.Count());
 
             return receivedCandidates;
@@ -59,7 +81,7 @@ namespace Bruhunter.Application
 
         public async Task ChangeCandidate(CandidateDocument candidateDocument)
         {
-            logger.LogInformation("Changing candidate {candidateDocument} in the database ...", 
+            logger.LogInformation("Changing candidate {candidateDocument} in the database ...",
                                     candidateDocument);
 
             await candidatesRepository.ChangeCandidate(candidateDocument);

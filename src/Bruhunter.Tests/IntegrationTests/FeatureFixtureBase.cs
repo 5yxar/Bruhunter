@@ -18,7 +18,7 @@ namespace Bruhunter.Tests.IntegrationTests
             CandidatesRepository = new CandidatesRepository(new LiteDatabase(new MemoryStream()));
             CandidatesService = new CandidatesService(CandidatesRepository, NullLogger<CandidatesService>.Instance);
             VacanciesRepository = new VacanciesRepository(new LiteDatabase(new MemoryStream()));
-            VacanciesService = new VacanciesService(VacanciesRepository);
+            VacanciesService = new VacanciesService(VacanciesRepository, CandidatesService);
         }
 
         protected ICandidatesRepository CandidatesRepository { get; private set; }

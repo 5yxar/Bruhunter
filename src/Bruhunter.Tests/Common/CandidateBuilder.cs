@@ -1,4 +1,5 @@
 ﻿using Bruhunter.Shared.Documents;
+using Bruhunter.Shared.Projections;
 using System;
 
 namespace Bruhunter.Tests.Common
@@ -8,7 +9,9 @@ namespace Bruhunter.Tests.Common
         private Guid id = Guid.NewGuid();
         private string firstName = "Vanya";
         private string secondName = "Ivanov";
-            
+        private Guid vacancyId = Guid.NewGuid();
+        private string vacancyTitle = "Vekselnaya";
+
         public CandidateBuilder WithId(Guid id)
         {
             this.id = id;
@@ -27,13 +30,26 @@ namespace Bruhunter.Tests.Common
             return this;
         }
 
+        public CandidateBuilder WithVacancyId(Guid vacancyId)
+        {
+            this.vacancyId = vacancyId;
+            return this;
+        }
+
+        public CandidateBuilder WithVacancyTitle(string vacancyTitle)
+        {
+            this.vacancyTitle = vacancyTitle;
+            return this;
+        }
+
         public CandidateDocument Please()
         {
             return new CandidateDocument
             {
                 Id = id,
                 FirstName = firstName,
-                SecondName = secondName
+                SecondName = secondName,
+                Vacancy = new CandidateVacancyDocumentProjection { Id = vacancyId, Title = vacancyTitle }
             };
         }
     }

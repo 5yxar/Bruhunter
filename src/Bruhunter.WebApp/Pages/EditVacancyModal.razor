@@ -53,6 +53,7 @@
         var jsonContent = JsonContent.Create(vacancyDocument, new MediaTypeHeaderValue("application/json"));
 
         await Http.PutAsync("api/vacancies/" + vacancyDocument.Id, jsonContent);
+
         await VacancyModal.CloseAsync(ModalResult.Ok<VacancyDocument>(vacancyDocument));
     }
 }

@@ -1,34 +1,62 @@
 ﻿@page "/candidates"
 @using System.Net.Http.Headers
 @using Bruhunter.WebApp.Pages
+@using Bruhunter.Shared.Projections
 @namespace Bruhunter.Shared.Documents
 
 @inject HttpClient Http
 @inject IJSRuntime JsRuntime
 
 <h1>Витрина кандидатов</h1>
-
-<p></p>
-
-<label>Введите имя:</label>
-<input @bind="name" />
-<br>
-<label>Введите фамилию:</label>
-<input @bind="lastName" />
-<br>
-<button @onclick="AddCandidate" class="btn btn-primary">Добавить нового кандидата</button><br><br>
-
 @if (candidates == null)
 {
     <p><em>Нет данных о кандидатах</em></p>
 }
 else
 {
+    <div class="border-left  p-4 ">
+        <h4>Добавить нового кандидата</h4>
+        <br>
+        @if (candidateVacanciesProjection.Count() != 0)
+        {
+            <div class="row">
+                <div class="col-md-2">
+                    <label>Введите имя:</label>
+                    <input class="form-control" @bind="name" />
+                </div>
+                <div class="col-md-2">
+                    <label>Введите фамилию:</label>
+                    <input class="form-control" @bind="lastName" />
+                </div>
+                <div class="col-md-2">
+                    <label>Выберите вакансию:</label>
+                    <select @bind="selectedActualVacancyId" class="form-control">
+                        @foreach (var vacancy in candidateVacanciesProjection)
+                        {
+                            <option value=@vacancy.Id>@vacancy.Title</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div>
+                <button @onclick="AddCandidate" class="btn btn-primary size-2">Добавить</button>
+            </div>
+        }
+        else
+        {
+            <p class="text-info"><em>Добавление временно недоступно. Нет доступных вакансий.</em></p>
+        }
+    </div>
+    <br>
+    <br>
+
     <table class="table">
         <thead>
             <tr>
                 <th>Имя</th>
                 <th>Фамилия</th>
+                <th>Вакансия</th>
                 <th></th>
             </tr>
         </thead>
@@ -38,6 +66,7 @@ else
                 <tr>
                     <td>@candidate.FirstName</td>
                     <td>@candidate.SecondName</td>
+                    <td>@(candidate.Vacancy != null ? candidate.Vacancy.Title : "")</td>
                     <td align="right">
                         <button @onclick="@(() => ChangeCandidateByModal(candidate.Id))" class="btn btn-primary">Изменить</button>
                         <button @onclick="@(() => DeleteCandidate(candidate.Id))" class="btn btn-danger">Удалить</button>
@@ -50,13 +79,20 @@ else
 
 @code
 {
-    private List<CandidateDocument> candidates;
+    private IEnumerable<CandidateDocument> candidates;
+    private IEnumerable<CandidateVacancyDocumentProjection> candidateVacanciesProjection;
     private string name;
     private string lastName;
+    Guid selectedActualVacancyId;
 
     protected override async Task OnInitializedAsync()
     {
         await LoadCandidates();
+
+        var dateTime = DateTime.Now.ToString("s");
+        var vacancies = await Http.GetFromJsonAsync<List<VacancyDocument>>($"api/vacancies/query?minCloseDateTime={dateTime}");
+
+        candidateVacanciesProjection = vacancies.Select(x => x.ToCandidateVacancyDocumentProjection());
     }
 
     [CascadingParameter] public IModalService Modal { get; set; }
@@ -68,7 +104,7 @@ else
 
     private async Task AddCandidate()
     {
-        if (name == null || lastName == null)
+        if (name == null || lastName == null || selectedActualVacancyId == Guid.Empty)
         {
             await JsRuntime.InvokeVoidAsync("alert", "Заполните все поля.");
         }
@@ -77,10 +113,12 @@ else
             var candidateDocument = new CandidateDocument
                 {
                     FirstName = name,
-                    SecondName = lastName
+                    SecondName = lastName,
+                    Vacancy = candidateVacanciesProjection.Where(o => o.Id == selectedActualVacancyId).Single()
                 };
             name = null;
             lastName = null;
+            selectedActualVacancyId = Guid.Empty;
 
             var jsonContent = JsonContent.Create(candidateDocument, new MediaTypeHeaderValue("application/json"));
             await Http.PostAsync("api/candidates", jsonContent);
@@ -89,13 +127,7 @@ else
         }
     }
 
-    private async Task DeleteCandidate(Guid id)
-    {
-        await Http.DeleteAsync("api/candidates/" + id);
-        await LoadCandidates();
-    }
-
-    async Task ChangeCandidateByModal(Guid id)
+    private async Task ChangeCandidateByModal(Guid id)
     {
         var parameters = new ModalParameters();
 
@@ -109,5 +141,11 @@ else
         {
             await LoadCandidates();
         }
+    }
+
+    private async Task DeleteCandidate(Guid id)
+    {
+        await Http.DeleteAsync("api/candidates/" + id);
+        await LoadCandidates();
     }
 }

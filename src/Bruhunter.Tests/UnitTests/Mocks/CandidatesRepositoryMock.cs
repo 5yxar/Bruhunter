@@ -38,7 +38,17 @@ namespace Bruhunter.Tests.UnitTests.Mocks
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<CandidateDocument>> GetAllCandidatesByVacancyId(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task ChangeCandidate(CandidateDocument candidateDocument)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateCandidates(IEnumerable<CandidateDocument> candidatesCollection)
         {
             throw new NotImplementedException();
         }

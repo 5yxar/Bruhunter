@@ -20,7 +20,7 @@ namespace Bruhunter.Tests.IntegrationTests.Features.Vacancy
 
         public async Task Then_database_should_not_contain_vacancies()
         {
-            Assert.Empty(await VacanciesRepository.GetAllVacancies());
+            Assert.Empty(await VacanciesRepository.QueryVacancies(null));
         }
     }
 }

@@ -9,10 +9,12 @@ namespace Bruhunter.Application
     public class VacanciesService
     {
         private readonly IVacanciesRepository vacanciesRepository;
+        private readonly CandidatesService candidatesService;
 
-        public VacanciesService(IVacanciesRepository vacanciesRepository)
+        public VacanciesService(IVacanciesRepository vacanciesRepository, CandidatesService candidatesService)
         {
             this.vacanciesRepository = vacanciesRepository;
+            this.candidatesService = candidatesService;
         }
 
         public async Task AddVacancy(VacancyDocument vacancyDocument)
@@ -27,14 +29,16 @@ namespace Bruhunter.Application
             return await vacanciesRepository.GetVacancy(candidateId);
         }
 
-        public async Task<IEnumerable<VacancyDocument>> GetAllVacancies()
+        public async Task<IEnumerable<VacancyDocument>> QueryVacancies(DateTime? minCloseDateTime = null)
         {
-            return await vacanciesRepository.GetAllVacancies();
+            return await vacanciesRepository.QueryVacancies(minCloseDateTime);
         }
 
         public async Task ChangeVacancy(VacancyDocument vacancyDocument)
         {
             await vacanciesRepository.ChangeVacancy(vacancyDocument);
+
+            await candidatesService.UpdateCandidateVacancyProjection(vacancyDocument.ToCandidateVacancyDocumentProjection());
         }
 
         public async Task DeleteVacancy(Guid id)
