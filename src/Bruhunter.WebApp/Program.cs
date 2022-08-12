@@ -21,7 +21,7 @@ namespace Bruhunter.WebApp
 
             builder.Services.AddBlazoredModal();
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri ("http://localhost:5002") });
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri ("https://localhost:5003") });
 
             await builder.Build().RunAsync();
         }
