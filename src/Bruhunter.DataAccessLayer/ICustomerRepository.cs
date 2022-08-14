@@ -12,6 +12,6 @@ namespace Bruhunter.DataAccessLayer
         Task<IEnumerable<CustomerDocument>> GetAllCustomers();
         Task ChangeCustomer(CustomerDocument customerDocument);
         Task UpdateCustomers(IEnumerable<CustomerDocument> customerDocuments);
-        Task DeleteCustomer(Guid guid);
+        Task DeleteCustomer(Guid id);
     }
 }
