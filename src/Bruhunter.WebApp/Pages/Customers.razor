@@ -1,0 +1,12 @@
+@page "/сustomers"
+@using Bruhunter.Shared.Documents
+
+<h1>Customers</h1>
+@if (customers == null)
+{
+    <p><em>Нет данных о заказчиках</em></p>
+}
+
+@code {
+    private IEnumerable<CustomerDocument> customers;
+}
