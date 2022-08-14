@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Bruhunter.Api.Controllers;
 
 [ApiController]
-[Route("api/candidates")]
+[Route("api/customers")]
 public class CustomersController : ControllerBase
 {
     private readonly CustomersController customersController;
